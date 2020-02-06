@@ -16,9 +16,9 @@ int		main()
 {
 
 	printf("*****MY PRINTF*****\n");
-	printf("ret : %d\n\n", ft_printf("bonjour %58074-*s a toi\n", "hey"));
-//	printf("*****REAL PRINTF*****\n");
-//	printf("ret : %d\n", printf("bonjour %s a toi\n", "hey"));
+	printf("ret : %d\n\n", ft_printf("bonjour %000d12 a toi\n", 33));
+	printf("*****REAL PRINTF*****\n");
+	printf("ret : %d\n", printf("bonjour %000d12 a toi\n", 33));
 
 //	printf("%04d03", 12);
 }

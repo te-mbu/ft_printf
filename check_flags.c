@@ -17,6 +17,7 @@ void			check_flag_zero(const char *str, t_flag *my_struct, int *i)
 	if (str[*i] == '0')
 	{
 		my_struct->zero = 1;
+		my_struct->len += 1;
 		*i += 1;
 	}
 }
@@ -28,16 +29,19 @@ void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, int *i)
 		if (str[*i] >= '0' && str[*i] <= '9')
 		{
 			my_struct->nb += 1;
+			my_struct->len += 1;
 			*i += 1;
 		}
 		if (str[*i] == '-')
 		{
 			my_struct->minus += 1;
+			my_struct->len += 1;
 			*i += 1;
 		}
 		if (str[*i] == '*')
 		{
 			my_struct->star += 1;
+			my_struct->len += 1;
 			*i += 1;
 		}
 	}

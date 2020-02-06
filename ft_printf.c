@@ -14,9 +14,6 @@
 
 void			ft_parsing(const char *str, t_flag *my_struct, int *i)
 {
-	int pos_pourcent;
-
-	pos_pourcent = *i;
 	*i += 1;
 	check_flag_zero(str, &*my_struct, &*i);
 	check_flag_nb_minus_star(str, &*my_struct, &*i);
@@ -24,12 +21,9 @@ void			ft_parsing(const char *str, t_flag *my_struct, int *i)
 
 int			ft_conversion(const char *str, t_flag my_struct, va_list args, int *i)
 {
-	//*i += 1;
-	//printf("\n\npos : %d | %c\n\n", *i, str[*i]);
 	int pos_after_percent;
 
-	pos_after_percent = *i;
-
+	pos_after_percent = *i - my_struct.len;
 	if (str[*i] == 's')
 		return (print_s(my_struct, args));
 	if (str[*i] == 'd')
@@ -67,6 +61,7 @@ int				ft_printf(const char *str, ...)
 			//printf("struct.minus : %d\n", my_struct.minus);
 			//printf("struct.nb : %d\n", my_struct.nb);
 			//printf("struct.dot : %d\n", my_struct.dot);
+			//printf("struct.len : %d\n", my_struct.len);
 			len += ft_conversion(str, my_struct, args, &i);
 		}
 		else

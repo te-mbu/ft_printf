@@ -75,3 +75,45 @@ size_t			ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
+char				*ft_strjoin(const char *s1, const char *s2)
+{
+	int		len;
+	int		i;
+	int		j;
+	char	*string;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen(s1) + ft_strlen(s2);
+	string = (char *)malloc(sizeof(char) * (len + 1));
+	if (!string)
+		return (NULL);
+	while (i < s1[i])
+	{
+		string[j] = s1[i];
+		i++;
+		j++;
+	}
+	i = 0;
+	while (i < s2[i])
+		string[j++] = s2[i++];
+	string[len] = '\0';
+	return (string);
+}
+
+char		*ft_strcpy(char *dest, char *src)
+{
+	int i;
+
+	i = 0;
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
