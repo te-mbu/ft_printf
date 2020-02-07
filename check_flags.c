@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:07:20 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/05 17:16:18 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/07 15:45:32 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,41 @@ void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, int *i)
 		if (str[*i] == '*')
 		{
 			my_struct->star += 1;
+			my_struct->len += 1;
+			*i += 1;
+		}
+	}
+}
+
+void			check_flag_precision(const char *str, t_flag *my_struct, int *i)
+{
+	if (str[*i] == '.')
+	{
+		my_struct->precision = 1;
+		my_struct->len += 1;
+		*i += 1;
+	}
+}
+
+void			check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct, int *i)
+{
+	while ((str[*i] >= '0' && str[*i] <= '9') || str[*i] == '-' || str[*i] == '*')
+	{
+		if (str[*i] >= '0' && str[*i] <= '9')
+		{
+			my_struct->nb2 += 1;
+			my_struct->len += 1;
+			*i += 1;
+		}
+		if (str[*i] == '-')
+		{
+			my_struct->minus2 += 1;
+			my_struct->len += 1;
+			*i += 1;
+		}
+		if (str[*i] == '*')
+		{
+			my_struct->star2 += 1;
 			my_struct->len += 1;
 			*i += 1;
 		}

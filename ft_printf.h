@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/05 19:04:32 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/07 18:30:28 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@
 typedef struct  s_flag {
     int     zero;
     int     minus;
+	int		minus2;
 	int		nb;
+	int		nb2;
 	int		star;
-    int     dot;
+	int		star2;
+    int     precision;
     int     len;
 }               t_flag;
 
@@ -48,8 +51,14 @@ char		*ft_strcpy(char *dest, char *src);
 ** conversions
 */
 
-int			print_s(t_flag my_struct, va_list args);
+//int			print_s(t_flag my_struct, va_list args);
 int			print_d(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
+int			print_d_space(const char *str, int pos_after_percent, char **to_print);
+int			print_d_minus_space(const char *str, int pos_after_percent, char **to_print);
+int			print_d_precision(const char *str, int pos_after_percent, char **to_print);
+int			print_d_precision_minus(const char *str, t_flag my_struct, int pos_after_percent, char **to_print);
+//int			print_d_precision_minus2(const char *str, t_flag my_struct, int pos_save, char ***to_print);
+
 int			ft_conversion(const char *str, t_flag my_struct, va_list args, int *i);
 void		ft_init_list(t_flag *my_struct);
 void		ft_parsing(const char *str, t_flag *my_struct, int *i);
@@ -60,4 +69,7 @@ void		ft_parsing(const char *str, t_flag *my_struct, int *i);
 
 void		check_flag_nb_minus_star(const char *str, t_flag *my_struct, int *i);
 void		check_flag_zero(const char *str, t_flag *my_struct, int *i);
+void		check_flag_precision(const char *str, t_flag *my_struct, int *i);
+void		check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct, int *i);
+
 #endif

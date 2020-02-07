@@ -1,8 +1,9 @@
 SRCS		= 	ft_printf.c					\
 				check_flags.c				\
 				ft_printf_utils1.c			\
-				
-
+				ft_itoa.c					\
+				print_d.c					\
+				print_s.c					\
 		
 OBJS		= ${SRCS:.c=.o}
 
