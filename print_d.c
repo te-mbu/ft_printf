@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:27:59 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/07 18:28:06 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/10 13:56:50 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,27 +133,36 @@ int				print_d_precision(const char *str, int pos_after_percent, char **to_print
 	return (ft_strlen(*to_print));	
 }
 
-/*
-int				print_d_precision_minus(const char *str, t_flag my_struct, int pos_after_percent, char **to_print)
+int				print_d_precision_minus(const char *str, int pos_after_percent, char **to_print)
 {
 	int 	nb_precision;
 	int 	pos_save;
-	int 	i;
 	char	*precision;
+	char	*string_precision;
 	char	to_print_new[ft_strlen(*to_print) + 1];
+	int i;
 
-	nb_precision = 0;
+	printf("***aaaaaaaa***");
 	i = 0;
+	nb_precision = 0;
 	pos_save = pos_after_percent;
+	ft_strcpy(to_print_new, *to_print);
+	free(*to_print);
+//	*to_print = ft_calloc(1, 1);
 	while (str[pos_after_percent] != '.')
 		pos_after_percent++;
 	pos_after_percent++;
+//	printf("\npos str : %c\n", str[pos_after_percent]);
 	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
 	{
 		nb_precision = nb_precision * 10 + str[pos_after_percent] - 48;
 		pos_after_percent++;
 	}
-	nb_precision = nb_precision - ft_strlen(*to_print);
+//	printf("\npos str 2 : %c\n", str[pos_after_percent]);
+	//printf("\nto_print : %s\n", *to_print);
+	nb_precision = nb_precision - ft_strlen(to_print_new);
+//	printf("\nnb precision : %d\n", nb_precision);
+//	printf("\n len to print new : %zu",ft_strlen(to_print_new));
 	precision = (char *)malloc(sizeof(char) * (nb_precision + 1));
 	while (i < nb_precision)
 	{
@@ -161,49 +170,36 @@ int				print_d_precision_minus(const char *str, t_flag my_struct, int pos_after_
 		i++;
 	}
 	precision[i] = '\0';
-	ft_strcpy(to_print_new, *to_print);
-//	free(*to_print);
-	*to_print = ft_strjoin(precision, to_print_new);
-	return (print_d_precision_minus2(str, my_struct, pos_save, &to_print));
-}
-
-int				print_d_precision_minus2(const char *str, t_flag my_struct, int pos_save, char ***to_print)
-{
-	int 	nb_precision;
-	int 	i;
-	char	*precision;
-	char	to_print_new[ft_strlen(**to_print) + 1];
-
+	string_precision = ft_strjoin(precision, to_print_new);
+//	printf("\nstring precision : %s\n", string_precision);
+	free(precision);
+//	string_precision = ft_calloc(1, 1);
 	nb_precision = 0;
-	i = 0;
-
-	while(str[pos_save] >= '0' && str[pos_save] <= '9')
+	pos_save++;
+	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
 	{
-		nb_precision = nb_precision * 10 + str[pos_save] - 48;
-		pos_save++;
+		nb_precision = nb_precision * 10 + str[pos_after_percent] - 48;
+		pos_after_percent++;
 	}
-	nb_precision = nb_precision - ft_strlen(**to_print);
+	nb_precision = nb_precision - ft_strlen(string_precision);
 	precision = (char *)malloc(sizeof(char) * (nb_precision + 1));
 	while (i < nb_precision)
 	{
-		precision[i] = '0';
+		precision[i] = ' ';
 		i++;
 	}
 	precision[i] = '\0';
-	ft_strcpy(to_print_new, **to_print);
-//	free(**to_print);
-	**to_print = ft_strjoin(to_print_new, precision);
-	return (ft_strlen(**to_print));
+	*to_print = ft_strjoin(string_precision, precision);
+	free(precision);
+	free(string_precision);
+	return (ft_strlen(*to_print));
 }
-*/
 
 int				print_d(const char *str, t_flag my_struct, va_list args, int pos_after_percent)
 {
 	char	*to_print;
-	int 	nb_zero;
 	size_t	len;
 
-	nb_zero = 0;
 	to_print = ft_strdup(ft_itoa(va_arg(args, int)));
 	if (my_struct.minus == 1 && my_struct.zero == 0 && my_struct.nb > 0)
 		print_d_minus_space(str, pos_after_percent, &to_print);
@@ -211,9 +207,15 @@ int				print_d(const char *str, t_flag my_struct, va_list args, int pos_after_pe
 		print_d_space(str, pos_after_percent, &to_print);
 	if (my_struct.zero == 1)
 		print_d_zero(str, pos_after_percent, &to_print);
-//	if (my_struct.precision == 1 && my_struct.minus == 1 && my_struct.nb)
-//		print_d_precision_minus(str, my_struct, pos_after_percent, &to_print);
-	if (my_struct.precision == 1 && my_struct.nb2 > 0)
+			printf("struct.minus : %d\n", my_struct.minus);
+			printf("struct.precision : %d\n", my_struct.precision);
+	if (my_struct.precision == 1 && my_struct.minus == 1/* && my_struct.nb2 > 0*/)
+	{
+		write(1, "aaa", 3);
+		print_d_precision_minus(str, pos_after_percent, &to_print);
+		write(1, "bbb", 3);
+	}
+	if (my_struct.nb == 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
 		print_d_precision(str, pos_after_percent, &to_print);
 
 	ft_putstr(to_print);

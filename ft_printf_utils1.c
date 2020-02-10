@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 15:08:59 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/05 13:14:40 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/10 14:23:54 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,57 @@ char		*ft_strcpy(char *dest, char *src)
 	}
 	dest[i] = '\0';
 	return (dest);
+}
+
+char		*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*string;
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s))
+		return (ft_calloc(1, 1));
+	if (start + len > ft_strlen(s))
+		len = ft_strlen(s) - start;
+	string = (char *)malloc(sizeof(char) * (len + 1));
+	if (!string)
+		return (NULL);
+	while (i < len)
+	{
+		string[i] = s[start + i];
+		i++;
+	}
+	string[i] = '\0';
+	return (string);
+}
+
+void		ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*str;
+
+	i = 0;
+	str = (unsigned char *)s;
+	while (i < n)
+	{
+		str[i] = 0;
+		i++;
+	}
+	return ;
+}
+
+void		*ft_calloc(size_t count, size_t size)
+{
+	void	*result;
+	size_t	i;
+
+	i = 0;
+	result = NULL;
+	result = malloc(count * size);
+	if (!result)
+		return (NULL);
+	ft_bzero(result, count * size);
+	return (result);
 }
