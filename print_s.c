@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:16:02 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/10 16:38:19 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/11 21:29:03 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				print_s_precision(const char *str, int pos_after_percent, char **to_print
 //PRINTF("%5s", "salut")
 int				print_s_space(const char *str, int pos_after_percent, char **to_print)
 {
-	int i;
+	size_t i;
 	size_t nb_space;
 	char *str_space;
 	char to_print_new[ft_strlen(*to_print) + 1];
@@ -77,7 +77,7 @@ int				print_s_space(const char *str, int pos_after_percent, char **to_print)
 //PRINTF("%-10s", "salut");
 int				print_s_minus_space(const char *str, int pos_after_percent, char **to_print)
 {
-	int i;
+	size_t i;
 	size_t nb_space;
 	char *str_space;
 	char to_print_new[ft_strlen(*to_print) + 1];
@@ -119,7 +119,7 @@ int				print_s_space_precision(const char *str, int pos_after_percent, char **to
 	char to_print_new[ft_strlen(*to_print) + 1];
 	char *str_precision;
 	char *str_space;
-	int i;
+	size_t i;
 
 	nb_precision = 0;
 	i = 0;
@@ -173,7 +173,7 @@ int				print_s_minus_space_precision(const char *str, int pos_after_percent, cha
 	char to_print_new[ft_strlen(*to_print) + 1];
 	char *str_precision;
 	char *str_space;
-	int i;
+	size_t i;
 
 	nb_precision = 0;
 	i = 0;
@@ -218,29 +218,44 @@ int				print_s_minus_space_precision(const char *str, int pos_after_percent, cha
 	return (ft_strlen(*to_print));
 }
 
+int				print_s_precision_wrong(char **to_print)
+{
+	char	to_print_new[ft_strlen(*to_print) + 1];
+
+	ft_strcpy(to_print_new, *to_print);
+	free(*to_print);
+	*to_print = ft_strdup("");
+	return (0);
+}
+
 int				print_s(const char *str, t_flag my_struct, va_list args, int pos_after_percent)
 {
 	char	*to_print;
 	size_t len;
 
-	to_print = ft_strdup(va_arg(args, char *));
-
-	if (my_struct.precision == 1 && my_struct.nb2 > 0 && my_struct.nb == 0)
-		print_s_precision(str, pos_after_percent, &to_print);
+	len = 0;
+	if (!(to_print = ft_strdup(va_arg(args, char*))))
+		to_print = ft_strdup("(null)");
 	
+	if (my_struct.precision == 1 && my_struct.nb2 > 0 && my_struct.nb == 0)
+		len += print_s_precision(str, pos_after_percent, &to_print);
+
+	if (my_struct.precision == 1 && my_struct.nb2 == 0 && my_struct.minus == 0)
+		len += print_s_precision_wrong(&to_print);
+
 	if (my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 0)
-		print_s_space(str, pos_after_percent, &to_print);
+		len += print_s_space(str, pos_after_percent, &to_print);
 
 	if (my_struct.nb > 0 && my_struct.minus == 1 && my_struct.precision == 0)
-		print_s_minus_space(str, pos_after_percent, &to_print);
+		len += print_s_minus_space(str, pos_after_percent, &to_print);
 
 	if (my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
-		print_s_minus_space_precision(str, pos_after_percent, &to_print);
+		len += print_s_minus_space_precision(str, pos_after_percent, &to_print);
 
 	if (my_struct.minus == 0 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
-		print_s_space_precision(str, pos_after_percent, &to_print);
+		len += print_s_space_precision(str, pos_after_percent, &to_print);
+
 	ft_putstr(to_print);
-	len = ft_strlen(to_print);
 	free(to_print);
 	return (len);
 }

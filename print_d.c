@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:27:59 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/10 13:56:50 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/10 19:51:57 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,14 +207,15 @@ int				print_d(const char *str, t_flag my_struct, va_list args, int pos_after_pe
 		print_d_space(str, pos_after_percent, &to_print);
 	if (my_struct.zero == 1)
 		print_d_zero(str, pos_after_percent, &to_print);
-			printf("struct.minus : %d\n", my_struct.minus);
-			printf("struct.precision : %d\n", my_struct.precision);
-	if (my_struct.precision == 1 && my_struct.minus == 1/* && my_struct.nb2 > 0*/)
+		//	printf("struct.minus : %d\n", my_struct.minus);
+		//	printf("struct.precision : %d\n", my_struct.precision);
+/*	if (my_struct.precision == 1 && my_struct.minus == 1 && my_struct.nb2 > 0)
 	{
 		write(1, "aaa", 3);
 		print_d_precision_minus(str, pos_after_percent, &to_print);
 		write(1, "bbb", 3);
 	}
+*/
 	if (my_struct.nb == 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
 		print_d_precision(str, pos_after_percent, &to_print);
 

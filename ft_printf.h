@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/10 16:37:32 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/11 21:17:19 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char		*ft_strdup(const char *src);
 size_t		ft_strlen(const char *s);
 char		*ft_itoa(int n);
 char		*ft_strjoin(const char *s1, const char *s2);
+char		*ft_strjoin_char(const char *s1, const char s2);
+char		*ft_strjoin_char2(const char *s1, const char s2);
 char		*ft_strcpy(char *dest, char *src);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		ft_bzero(void *s, size_t n);
@@ -59,6 +61,7 @@ int			print_s_space(const char *str, int pos_after_percent, char **to_print);
 int			print_s_minus_space(const char *str, int pos_after_percent, char **to_print);
 int			print_s_space_precision(const char *str, int pos_after_percent, char **to_print);
 int			print_s_minus_space_precision(const char *str, int pos_after_percent, char **to_print);
+int			print_s_precision_wrong(char **to_print);
 
 int			print_d(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
 int			print_d_space(const char *str, int pos_after_percent, char **to_print);
@@ -66,6 +69,10 @@ int			print_d_minus_space(const char *str, int pos_after_percent, char **to_prin
 int			print_d_precision(const char *str, int pos_after_percent, char **to_print);
 int			print_d_precision_minus(const char *str, int pos_after_percent, char **to_print);
 //int			print_d_precision_minus2(const char *str, t_flag my_struct, int pos_save, char ***to_print);
+
+int			print_c(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
+int			print_c_no_flag(char *to_print, char tmp);
+int			print_c_space(const char *str, int pos_after_percent, char **to_print, char tmp);
 
 int			ft_conversion(const char *str, t_flag my_struct, va_list args, int *i);
 void		ft_init_list(t_flag *my_struct);

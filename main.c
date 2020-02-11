@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:47:34 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/10 16:39:33 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/11 21:46:08 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 int		main()
 {
-		ft_printf("***FT_PRINTF***\n\n%-8.4s\n\n", "salut");
-		printf("***REAL PRINTF***\n\n%-8.4s\n\n", "salut");
+//#  define INPUT "%-5c", (char)2
+//		printf("\nret :%d\n", ft_printf(INPUT));
+//		printf("\nret :%d\n", printf(INPUT));
 
-//	printf("%s", "salut");
+printf("%*10%", 50);
 }
