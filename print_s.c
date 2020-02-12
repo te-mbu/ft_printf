@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:16:02 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/11 23:09:07 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/12 05:28:40 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,6 @@ int				print_s_space_precision(const char *str, int pos_after_percent, char **to
 }
 
 //PRINTF("%-10.2s", "salut");
-//sa . . . . . . . . 
-
 int				print_s_minus_space_precision(const char *str, int pos_after_percent, char **to_print)
 {
 	size_t nb_precision;
@@ -228,6 +226,38 @@ int				print_s_precision_wrong(char **to_print)
 	return (0);
 }
 
+int				print_s_precision_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct)
+{
+	size_t i;
+	size_t nb_space;
+	char	to_print_new[ft_strlen(*to_print) + 1];
+	char	*str_space;
+
+	i = 0;
+	nb_space = 0;
+	ft_strcpy(to_print_new, *to_print);
+	free(*to_print);
+	if (my_struct.minus == 1)
+		pos_after_percent++;
+	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
+	{
+		nb_space = nb_space * 10 + str[pos_after_percent] - 48;
+		pos_after_percent++;
+	}
+	str_space = (char *)malloc(sizeof(char) * (nb_space + 1));
+	if (!(str_space))
+		return (0);
+	while (i < nb_space)
+	{
+		str_space[i] = ' ';
+		i += 1;
+	}
+	str_space[i] = '\0';
+	*to_print = ft_strdup(str_space);
+	free(str_space);
+	return (ft_strlen(*to_print));
+}
+
 int				print_s(const char *str, t_flag my_struct, va_list args, int pos_after_percent)
 {
 	char	*to_print;
@@ -237,22 +267,26 @@ int				print_s(const char *str, t_flag my_struct, va_list args, int pos_after_pe
 	if (!(to_print = ft_strdup(va_arg(args, char*))))
 		to_print = ft_strdup("(null)");
 	
-	if (my_struct.precision == 1 && my_struct.nb2 > 0 && my_struct.nb == 0)
+	if (my_struct.minus == 0 && my_struct.nb == 0 && my_struct.precision == 1 && my_struct.nb2 > 0 )
 		len += print_s_precision(str, pos_after_percent, &to_print);
 
-	if (my_struct.precision == 1 && my_struct.nb2 == 0 && my_struct.minus == 0)
+	else if (my_struct.minus == 0 && my_struct.nb == 0 && my_struct.precision == 1 && my_struct.nb2 == 0)
 		len += print_s_precision_wrong(&to_print);
 
-	if (my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 0)
+	else if (my_struct.minus == 0 && my_struct.nb > 0 && my_struct.precision == 0)
 		len += print_s_space(str, pos_after_percent, &to_print);
 
-	if (my_struct.nb > 0 && my_struct.minus == 1 && my_struct.precision == 0)
+	else if ((my_struct.minus == 0 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 == 0)
+			|| (my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 == 0))
+		len += print_s_precision_space(str, pos_after_percent, &to_print, my_struct);
+
+	else if (my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 0)
 		len += print_s_minus_space(str, pos_after_percent, &to_print);
 
-	if (my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
+	else if (my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
 		len += print_s_minus_space_precision(str, pos_after_percent, &to_print);
 
-	if (my_struct.minus == 0 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
+	else if (my_struct.minus == 0 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
 		len += print_s_space_precision(str, pos_after_percent, &to_print);
 
 	ft_putstr(to_print);

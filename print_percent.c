@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/11 23:07:11 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/12 03:51:19 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/12 03:57:45 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,32 +114,24 @@ int				print_percent_minus_zero(const char *str, int pos_after_percent)
 
 int				print_percent(const char *str, t_flag my_struct, int pos_after_percent)
 {
-	char	*to_print;
 	size_t len;
 
 	len = 0;
-
 	if ((my_struct.zero > 0 && my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 0 
 					&& my_struct.nb2 == 0))
 		len += print_percent_zero(str, pos_after_percent);
-
 	else if ((my_struct.nb > 0 && my_struct.minus == 1 && my_struct.precision == 0 && my_struct.nb2 == 0))
 		len += print_percent_minus_zero(str, pos_after_percent);
-
 	else if ((my_struct.nb == 0 && my_struct.minus == 0 && my_struct.precision == 0 && my_struct.nb2 == 0)
 		|| (my_struct.nb == 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.nb2 == 0) 
 			|| (my_struct.nb == 0 && my_struct.precision == 1 && my_struct.nb2 > 0))
 		len += print_percent_no_flag();
-
 	else if ((my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 0 && my_struct.nb2 == 0)
 		|| (my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
 			|| (my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.nb2 == 0))
 		len += print_percent_space(str, pos_after_percent);
-
 	else if ((my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 0) 
 		||(my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 1))
 		len += print_percent_minus_space(str, pos_after_percent);
-
-		
 	return (len);
 }
