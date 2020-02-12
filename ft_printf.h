@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/11 21:17:19 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/12 02:02:28 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ int			print_d_precision_minus(const char *str, int pos_after_percent, char **to_
 int			print_c(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
 int			print_c_no_flag(char *to_print, char tmp);
 int			print_c_space(const char *str, int pos_after_percent, char **to_print, char tmp);
+
+int			print_percent(const char *str, t_flag my_struct, int pos_after_percent);
+int			print_percent_no_flag();
+int			print_percent_space(const char *str, int pos_after_percent);
 
 int			ft_conversion(const char *str, t_flag my_struct, va_list args, int *i);
 void		ft_init_list(t_flag *my_struct);

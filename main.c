@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:47:34 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/11 21:46:08 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/12 03:51:52 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		main()
 {
-//#  define INPUT "%-5c", (char)2
-//		printf("\nret :%d\n", ft_printf(INPUT));
-//		printf("\nret :%d\n", printf(INPUT));
+#  define INPUT "%-010%"
+		printf("\nret :%d\n", ft_printf(INPUT));
+		printf("\nret :%d\n", printf(INPUT));
 
-printf("%*10%", 50);
+//printf("%.-5%");
 }

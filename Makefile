@@ -5,6 +5,7 @@ SRCS		= 	ft_printf.c					\
 				print_d.c					\
 				print_s.c					\
 				print_c.c					\
+				print_percent.c				\
 		
 OBJS		= ${SRCS:.c=.o}
 

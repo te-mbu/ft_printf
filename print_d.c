@@ -6,12 +6,13 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:27:59 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/10 19:51:57 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/11 23:21:44 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+//PRINTF("%-5d", 12);
 int				print_d_minus_space(const char *str, int pos_after_percent, char **to_print)
 {
 	size_t 	nb_space;
@@ -42,6 +43,7 @@ int				print_d_minus_space(const char *str, int pos_after_percent, char **to_pri
 	return (ft_strlen(*to_print));
 }
 
+//PRINTF("%5d", 12);
 int				print_d_space(const char *str, int pos_after_percent, char **to_print)
 {
 	size_t 	nb_space;
@@ -71,6 +73,7 @@ int				print_d_space(const char *str, int pos_after_percent, char **to_print)
 	return (ft_strlen(*to_print));
 }
 
+//PRINTF("%05d", 12);
 int				print_d_zero(const char *str, int pos_after_percent, char **to_print)
 {
 	size_t 	nb_zero;
@@ -97,11 +100,12 @@ int				print_d_zero(const char *str, int pos_after_percent, char **to_print)
 	}
 	string_zero[i] = '\0';
 	ft_strcpy(to_print_new, *to_print);	
-//	free(*to_print);
+	free(*to_print);
 	*to_print = ft_strjoin(string_zero, to_print_new);
 	return (ft_strlen(*to_print));
 }
 
+//PRINTF("%.5d", 12);
 int				print_d_precision(const char *str, int pos_after_percent, char **to_print)
 {
 	size_t 	nb_precision;
@@ -133,6 +137,7 @@ int				print_d_precision(const char *str, int pos_after_percent, char **to_print
 	return (ft_strlen(*to_print));	
 }
 
+//PRINTF("%.5d", 12);
 int				print_d_precision_minus(const char *str, int pos_after_percent, char **to_print)
 {
 	int 	nb_precision;

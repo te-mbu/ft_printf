@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:07 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/11 19:23:09 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/12 00:16:29 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int			ft_conversion(const char *str, t_flag my_struct, va_list args, int *i)
 	pos_after_percent = *i - my_struct.len;
 	if (str[*i] == 's')
 		return (print_s(str, my_struct, args, pos_after_percent));
-	if (str[*i] == 'd')
+	if (str[*i] == 'd' || str[*i] == 'i')
 		return (print_d(str, my_struct, args, pos_after_percent));
 	if (str[*i] == 'c')
 		return (print_c(str, my_struct, args, pos_after_percent));
+	if (str[*i] == '%')
+		return (print_percent(str, my_struct, pos_after_percent));
 	return (0);
 }
 

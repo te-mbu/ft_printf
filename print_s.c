@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:16:02 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/11 21:29:03 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/11 23:09:07 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				print_s_precision(const char *str, int pos_after_percent, char **to_print
 	return (ft_strlen(*to_print));
 }
 
-//PRINTF("%5s", "salut")
+//PRINTF("%5s", "salut");
 int				print_s_space(const char *str, int pos_after_percent, char **to_print)
 {
 	size_t i;
