@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:07:20 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/23 16:00:34 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/23 21:43:10 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void			check_flag_zero(const char *str, t_flag *my_struct, int *i)
 	}
 }
 
-void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, int *i)
+void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, va_list args,  int *i)
 {
 	while ((str[*i] >= '0' && str[*i] <= '9') || str[*i] == '-' || str[*i] == '*')
 	{
@@ -41,7 +41,12 @@ void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, int *i)
 		if (str[*i] == '*')
 		{
 
-			my_struct->star += 1;
+			my_struct->star = va_arg(args, int);
+			if (my_struct->star < 0)
+			{
+				my_struct->star *= (-1);
+				my_struct->minus = 1;
+			}
 			my_struct->len += 1;
 			*i += 1;
 		}
@@ -58,7 +63,7 @@ void			check_flag_precision(const char *str, t_flag *my_struct, int *i)
 	}
 }
 
-void			check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct, int *i)
+void			check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct, va_list args, int *i)
 {
 	while ((str[*i] >= '0' && str[*i] <= '9') || str[*i] == '-' || str[*i] == '*')
 	{
@@ -76,7 +81,7 @@ void			check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct, int *i)
 		}
 		if (str[*i] == '*')
 		{
-			my_struct->star2 += 1;
+			my_struct->star2 = va_arg(args, int);
 			my_struct->len += 1;
 			*i += 1;
 		}

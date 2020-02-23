@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/21 13:48:33 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/23 21:27:31 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int			is_a_minus(const char *str);
 int			ft_atoi(const char *str);
 int			is_fill_with_zero(const char *str);
 int			small_atoi(const char *str, int *pos, size_t nb_value);
+int			small_atoi_final(const char *str, int *pos, size_t nb_value, t_flag my_struct);
+int			small_atoi_final2(const char *str, int *pos, size_t nb_value, t_flag my_struct);
 char		*min_2_plus(char **to_print);
 
 /*
@@ -65,20 +67,24 @@ char		*min_2_plus(char **to_print);
 */
 
 int			print_s(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
-int			print_s_space(const char *str, int pos_after_percent, char **to_print);
-int			print_s_minus_space(const char *str, int pos_after_percent, char **to_print);
-int			print_s_space_precision(const char *str, int pos_after_percent, char **to_print);
-int			print_s_minus_space_precision(const char *str, int pos_after_percent, char **to_print);
+int			print_s_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_s_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_s_minus_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_s_space_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_s_minus_space_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
 int			print_s_nb_prec_only(const char *str, int pos_after_percent, t_flag my_struct);
 
 int			print_d(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
-int			print_d_zero(const char *str, int pos_after_percent, char **to_print);
-int			print_d_space(const char *str, int pos_after_percent, char **to_print);
-int			print_d_minus_space(const char *str, int pos_after_percent, char **to_print);
-int			print_d_precision(const char *str, int pos_after_percent, char **to_print);
-int			print_d_precision_minus(const char *str, int pos_after_percent, char **to_print);
-int			print_d_zero_precision(const char *str, int pos_after_percent, char **to_print);
-int			print_d_precision_plus(const char *str, int pos_after_percent, char **to_print);
+int			print_d_zero(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_d_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_d_minus_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_d_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_d_precision_minus(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_d_precision_minus_neg(const char *str, int pos_after_percent, char ***to_print, t_flag my_struct);
+int			print_d_precision_plus(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_d_precision_plus_neg(const char *str, int pos_after_percent, char ***to_print, t_flag my_struct);
+int			print_d_zero_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+int			print_d_zero_precision_neg(const char *str, int pos_after_percent, char ***to_print, t_flag my_struct);
 int			print_d_special_case(const char *str, int pos_after_percent, t_flag my_struct);
 
 int			print_percent_no_flag();
@@ -101,15 +107,15 @@ int			ft_input_equal_zero(const char *str, int pos_after_percent, t_flag my_stru
 
 int			ft_conversion(const char *str, t_flag my_struct, va_list args, int *i);
 void		ft_init_list(t_flag *my_struct);
-void		ft_parsing(const char *str, t_flag *my_struct, int *i);
+void		ft_parsing(const char *str, t_flag *my_struct, va_list args, int *i);
 
 /*
 ** flags
 */
 
-void		check_flag_nb_minus_star(const char *str, t_flag *my_struct, int *i);
+void		check_flag_nb_minus_star(const char *str, t_flag *my_struct, va_list args, int *i);
 void		check_flag_zero(const char *str, t_flag *my_struct, int *i);
 void		check_flag_precision(const char *str, t_flag *my_struct, int *i);
-void		check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct, int *i);
+void		check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct,va_list args, int *i);
 
 #endif

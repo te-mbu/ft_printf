@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 19:38:19 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/23 16:04:40 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/23 20:50:59 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,70 @@
 
 int			small_atoi(const char *str, int *pos, size_t nb_value)
 {
-//	if (str[*pos] == '*')
-//	{
-//		nb_value = va_arg(args, int);
-//		return (nb_value);
-//	}
+	while (str[*pos] >= '0' && str[*pos] <= '9')
+	{
+		nb_value = nb_value * 10 + str[*pos] - 48;
+		*pos += 1;
+	}
+	return (nb_value);
+}
+/*
+static long int		len_number(long long nb)
+{
+	if (nb < 0)
+		return (1 + len_number(nb * (-1)));
+	if (nb > 9)
+		return (1 + len_number(nb / 10));
+	return (1);
+}
+
+static int			what_multiplicator(int len)
+{
+	int i;
+	int result;
+
+	i = 0;
+	result = 1;
+	while (i < len)
+	{
+		result = result * 10;
+		i++;
+	}
+	return (result);
+}
+*/
+
+int			small_atoi_final(const char *str, int *pos, size_t nb_value, t_flag my_struct)
+{
+	int multi;
+	int len;
+
+	multi = 0;
+	len = 0;
+	if (str[*pos] == '*')
+	{
+		nb_value = my_struct.star;
+		return (nb_value);
+	}
+	while (str[*pos] >= '0' && str[*pos] <= '9')
+	{
+		nb_value = nb_value * 10 + str[*pos] - 48;
+		*pos += 1;
+	}
+	return (nb_value);
+}
+int			small_atoi_final2(const char *str, int *pos, size_t nb_value, t_flag my_struct)
+{
+	int multi;
+	int len;
+
+	multi = 0;
+	len = 0;
+	if (str[*pos] == '*')
+	{
+		nb_value = my_struct.star2;
+		return (nb_value);
+	}
 	while (str[*pos] >= '0' && str[*pos] <= '9')
 	{
 		nb_value = nb_value * 10 + str[*pos] - 48;
