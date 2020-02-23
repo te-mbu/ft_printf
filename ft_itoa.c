@@ -6,13 +6,13 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:31:20 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/05 17:36:39 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/21 12:22:38 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static long int		len_number(long int nb)
+static long int		len_number(long long nb)
 {
 	if (nb < 0)
 		return (1 + len_number(nb * (-1)));
@@ -21,12 +21,12 @@ static long int		len_number(long int nb)
 	return (1);
 }
 
-static char			int_to_char(long int mod)
+static char			int_to_char(long mod)
 {
 	return (mod + 48);
 }
 
-static void			fill_words(long int nb, long int len_nb, char *result_nb)
+static void			fill_words(long long nb, long long len_nb, char *result_nb)
 {
 	long int div;
 	long int mod;
@@ -38,10 +38,10 @@ static void			fill_words(long int nb, long int len_nb, char *result_nb)
 	result_nb[len_nb] = int_to_char(mod);
 }
 
-char				*ft_itoa(int n)
+char				*ft_itoa(long long n)
 {
-	long int	nb;
-	long int	len_nb;
+	long long	nb;
+	long long	len_nb;
 	char		*result_nb;
 
 	nb = n;

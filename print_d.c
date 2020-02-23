@@ -6,103 +6,84 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:27:59 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/11 23:21:44 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/23 15:56:48 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-//PRINTF("%-5d", 12);
-int				print_d_minus_space(const char *str, int pos_after_percent, char **to_print)
-{
-	size_t 	nb_space;
-	size_t 	i;
-	char 	*string_space;
-	char	to_print_new[ft_strlen(*to_print) + 1];
-
-	nb_space = 0;
-	i = 0;
-	pos_after_percent++;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
-	{
-		nb_space = nb_space * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
-	}
-	if (nb_space <= ft_strlen(*to_print))
-		return (ft_strlen(*to_print));
-	nb_space = nb_space - ft_strlen(*to_print);
-	string_space = (char *)malloc(sizeof(char) * (nb_space + 1));
-	while (i < nb_space)
-	{
-		string_space[i] = ' ';
-		i++;
-	}
-	string_space[i] = '\0';
-	ft_strcpy(to_print_new, *to_print);
-	*to_print = ft_strjoin(to_print_new, string_space);
-	return (ft_strlen(*to_print));
-}
 
 //PRINTF("%5d", 12);
 int				print_d_space(const char *str, int pos_after_percent, char **to_print)
 {
 	size_t 	nb_space;
 	size_t 	i;
-	char 	*string_space;
-	char	to_print_new[ft_strlen(*to_print) + 1];
 
 	nb_space = 0;
 	i = 0;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
+	nb_space = small_atoi(str, &pos_after_percent, nb_space);
+	if (nb_space <= ft_strlen(*to_print))
+		nb_space = 0;
+	else
+		nb_space = nb_space - ft_strlen(*to_print);
+	while (i < nb_space)
 	{
-		nb_space = nb_space * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
+		ft_putchar(' ');
+		i++;
 	}
+	ft_putstr(*to_print);
+	return (ft_strlen(*to_print) + nb_space);
+}
+
+//PRINTF("%-5d", 12);
+int				print_d_minus_space(const char *str, int pos_after_percent, char **to_print)
+{
+	size_t 	nb_space;
+	size_t 	i;
+
+	nb_space = 0;
+	i = 0;
+	pos_after_percent++;
+	ft_putstr(*to_print);
+	nb_space = small_atoi(str, &pos_after_percent, nb_space);
 	if (nb_space <= ft_strlen(*to_print))
 		return (ft_strlen(*to_print));
 	nb_space = nb_space - ft_strlen(*to_print);
-	string_space = (char *)malloc(sizeof(char) * (nb_space + 1));
 	while (i < nb_space)
 	{
-		string_space[i] = ' ';
+		ft_putchar(' ');
 		i++;
 	}
-	string_space[i] = '\0';
-	ft_strcpy(to_print_new, *to_print);
-	*to_print = ft_strjoin(string_space, to_print_new);
-	return (ft_strlen(*to_print));
+	return (ft_strlen(*to_print) + nb_space);
 }
 
-//PRINTF("%05d", 12);
+
+//PRINTF("%015", 12);
 int				print_d_zero(const char *str, int pos_after_percent, char **to_print)
 {
-	size_t 	nb_zero;
-	size_t 	i;
-	char 	*string_zero;
-	char	to_print_new[ft_strlen(*to_print) + 1];
-
+	size_t 		nb_zero;
+	size_t 		i;
+	int 		neg;
+	
 	nb_zero = 0;
 	i = 0;
+	neg = 0;
 	pos_after_percent++;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
-	{
-		nb_zero = nb_zero * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
-	}
+	nb_zero = small_atoi(str, &pos_after_percent, nb_zero);
 	if (nb_zero <= ft_strlen(*to_print))
-		return (ft_strlen(*to_print));
-	nb_zero = nb_zero - ft_strlen(*to_print);
-	string_zero = (char *)malloc(sizeof(char) * (nb_zero + 1));
-	while (i < nb_zero)
+		nb_zero = 0;
+	else
+		nb_zero = nb_zero - ft_strlen(*to_print);
+	if (is_a_minus(*to_print))
 	{
-		string_zero[i] = '0';
-		i++;
+		*to_print = min_2_plus(&*to_print);
+		neg = 1;
 	}
-	string_zero[i] = '\0';
-	ft_strcpy(to_print_new, *to_print);	
-	free(*to_print);
-	*to_print = ft_strjoin(string_zero, to_print_new);
-	return (ft_strlen(*to_print));
+	while (i++ < nb_zero)
+		ft_putchar('0');
+	ft_putstr(*to_print);
+	if (neg == 1)
+		return (ft_strlen(*to_print) + nb_zero + 1);
+	return (ft_strlen(*to_print) + nb_zero);
 }
 
 //PRINTF("%.5d", 12);
@@ -110,94 +91,416 @@ int				print_d_precision(const char *str, int pos_after_percent, char **to_print
 {
 	size_t 	nb_precision;
 	size_t 	i;
+	long long result;
 	char	*precision;
-	char	to_print_new[ft_strlen(*to_print) + 1];
+	int neg;
 
 	nb_precision = 0;
 	i = 0;
+	result = 0;
+	neg = 0;
+	if (is_a_minus(*to_print))
+	{
+		*to_print = min_2_plus(&*to_print);
+		neg = 1;
+	}
 	while (str[pos_after_percent] != '.')
 		pos_after_percent++;
 	pos_after_percent++;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
-	{
-		nb_precision = nb_precision * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
-	}
-	nb_precision = nb_precision - ft_strlen(*to_print);
-	precision = (char *)malloc(sizeof(char) * (nb_precision + 1));
-	while (i < nb_precision)
-	{
-		precision[i] = '0';
-		i++;
-	}
-	precision[i] = '\0';
-	ft_strcpy(to_print_new, *to_print);
-	free(*to_print);
-	*to_print = ft_strjoin(precision, to_print_new);
-	return (ft_strlen(*to_print));	
+	nb_precision = small_atoi(str, &pos_after_percent, nb_precision);
+	if (is_fill_with_zero(*to_print) && nb_precision == 0)
+		return (0);
+	if (nb_precision <= ft_strlen(*to_print))
+		nb_precision = 0;
+	else
+		nb_precision = nb_precision - ft_strlen(*to_print);
+	if (!(precision = (char *)malloc(sizeof(char) * (nb_precision + 1))))
+		return (0);
+	while (i++ < nb_precision)
+			ft_putchar('0');
+	free(precision);
+	ft_putstr(*to_print);
+	if (neg == 1 && nb_precision > ft_strlen(*to_print))
+		return (ft_strlen(*to_print) + nb_precision + 1);
+
+	else if (neg == 1 && nb_precision <= ft_strlen(*to_print))
+		return (ft_strlen(*to_print) + 1);
+	else
+		return (ft_strlen(*to_print) + nb_precision);
 }
 
-//PRINTF("%.5d", 12);
-int				print_d_precision_minus(const char *str, int pos_after_percent, char **to_print)
+int				print_d_precision_minus_neg(const char *str, int pos_after_percent, char ***to_print)
 {
-	int 	nb_precision;
+	size_t 	nb_precision;
+	size_t	nb_space;
 	int 	pos_save;
-	char	*precision;
-	char	*string_precision;
-	char	to_print_new[ft_strlen(*to_print) + 1];
-	int i;
+	char	*string_space;
+	size_t i;
+	long long result;
 
-	printf("***aaaaaaaa***");
 	i = 0;
+	result = 0;
 	nb_precision = 0;
+	nb_space = 0;
 	pos_save = pos_after_percent;
-	ft_strcpy(to_print_new, *to_print);
-	free(*to_print);
-//	*to_print = ft_calloc(1, 1);
+	**to_print = min_2_plus(&**to_print);
 	while (str[pos_after_percent] != '.')
 		pos_after_percent++;
 	pos_after_percent++;
-//	printf("\npos str : %c\n", str[pos_after_percent]);
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
+	nb_precision = small_atoi(str, &pos_after_percent, nb_precision);
+	if (nb_precision <= ft_strlen(**to_print))
+		nb_precision = 0;
+	else
+		nb_precision = nb_precision - ft_strlen(**to_print);
+	while (i++ < nb_precision)
+		ft_putchar('0');
+	i = 0;
+	pos_save++;
+	nb_space = small_atoi(str, &pos_save, nb_space);
+	if (nb_space <= (ft_strlen(**to_print) + nb_precision))
+		nb_space = 0;
+	else
+		nb_space = nb_space - (ft_strlen(**to_print) + nb_precision + 1);
+	if (!(string_space = (char *)malloc(sizeof(char) * (nb_space + 1))))
+		return (0);
+	while (i < nb_space)
 	{
-		nb_precision = nb_precision * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
+		string_space[i] = ' ';
+		i++;
 	}
-//	printf("\npos str 2 : %c\n", str[pos_after_percent]);
-	//printf("\nto_print : %s\n", *to_print);
-	nb_precision = nb_precision - ft_strlen(to_print_new);
-//	printf("\nnb precision : %d\n", nb_precision);
-//	printf("\n len to print new : %zu",ft_strlen(to_print_new));
-	precision = (char *)malloc(sizeof(char) * (nb_precision + 1));
+	string_space[i] = '\0';
+	ft_putstr(**to_print);
+	ft_putstr(string_space);
+	free(string_space);
+	return (nb_precision + nb_space + ft_strlen(**to_print) + 1);
+}
+
+int				print_d_precision_minus(const char *str, int pos_after_percent, char **to_print)
+{
+	size_t 	nb_precision;
+	size_t	nb_space;
+	int 	pos_save;
+	char	*precision;
+	char	*string_space;
+	size_t i;
+	i = 0;
+	nb_precision = 0;
+	nb_space = 0;
+	pos_save = pos_after_percent;
+
+	if (is_a_minus(*to_print))
+		return (print_d_precision_minus_neg(str, pos_after_percent, &to_print));
+	while (str[pos_after_percent] != '.')
+		pos_after_percent++;
+	pos_after_percent++;
+	nb_precision = small_atoi(str, &pos_after_percent, nb_precision);
+	if (is_fill_with_zero(*to_print) && nb_precision == 0)
+	{
+		pos_save++;
+		nb_space = small_atoi(str, &pos_save, nb_space);
+		while (i < nb_space)
+		{
+			ft_putchar(' ');
+			i++;
+		}
+		return (nb_space);
+	}
+	if (nb_precision < ft_strlen(*to_print))
+		nb_precision = 0;
+	else
+		nb_precision = nb_precision - ft_strlen(*to_print);
+
+	if (!(precision = (char *)malloc(sizeof(char) * (nb_precision + 1))))
+		return (0);
 	while (i < nb_precision)
 	{
 		precision[i] = '0';
 		i++;
 	}
 	precision[i] = '\0';
-	string_precision = ft_strjoin(precision, to_print_new);
-//	printf("\nstring precision : %s\n", string_precision);
+	ft_putstr(precision);
 	free(precision);
-//	string_precision = ft_calloc(1, 1);
-	nb_precision = 0;
+	ft_putstr(*to_print);
+	i = 0;
 	pos_save++;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
+	nb_space = small_atoi(str, &pos_save, nb_space);
+	if (nb_space < ft_strlen(*to_print) + nb_precision)
+		nb_space = 0;
+	else
+		nb_space = nb_space - (ft_strlen(*to_print) + nb_precision);
+	if (!(string_space = (char *)malloc(sizeof(char) * (nb_space + 1))))
+		return (0);
+	while (i < nb_space)
 	{
-		nb_precision = nb_precision * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
+		string_space[i] = ' ';
+		i++;
 	}
-	nb_precision = nb_precision - ft_strlen(string_precision);
-	precision = (char *)malloc(sizeof(char) * (nb_precision + 1));
+	string_space[i] = '\0';
+	ft_putstr(string_space);
+	free(string_space);
+	return (ft_strlen(*to_print) + nb_space + nb_precision);
+	
+}
+int				print_d_precision_plus_neg(const char *str, int pos_after_percent, char ***to_print)
+{
+	size_t 	nb_precision;
+	size_t	nb_space;
+	int 	pos_save;
+	char	*precision;
+	long long result;
+	size_t i;
+
+	i = 0;
+	nb_precision = 0;
+	nb_space = 0;
+	result = 0;
+	pos_save = pos_after_percent;
+	while (str[pos_after_percent] != '.')
+		pos_after_percent++;
+	pos_after_percent++;
+	nb_precision = small_atoi(str, &pos_after_percent, nb_precision);
+	if (nb_precision <= ft_strlen(**to_print) - 1)
+		precision = ft_strdup("");
+	else
+	{
+		nb_precision = nb_precision - (ft_strlen(**to_print) - 1);
+		if (!(precision = (char *)malloc(sizeof(char) * (nb_precision + 1))))
+			return (0);
+		while (i < nb_precision)
+		{
+			precision[i] = '0';
+			i++;
+		}
+		precision[i] = '\0';
+	}
+	i = 0;
+	nb_space = small_atoi(str, &pos_save, nb_space);
+	if (nb_space <= (ft_strlen(precision) + ft_strlen(**to_print)))
+		nb_space = 0;
+	else
+		nb_space = nb_space - (ft_strlen(precision) + ft_strlen(**to_print));
+	while (i < nb_space)
+	{
+		ft_putchar(' ');
+		i++;
+	}
+	result = ft_atoi(**to_print) * (-1);
+	free(**to_print);
+	**to_print = ft_itoa(result);
+	ft_putchar('-');
+	if (is_fill_with_zero(precision))
+		ft_putstr(precision);
+	ft_putstr(**to_print);
+	return (nb_space + ft_strlen(**to_print) + 1);
+}
+
+int				print_d_precision_plus(const char *str, int pos_after_percent, char **to_print)
+{
+	size_t 	nb_precision;
+	size_t	nb_space;
+	int 	pos_save;
+	char	*precision;
+	size_t i;
+
+	i = 0;
+	nb_precision = 0;
+	nb_space = 0;
+	pos_save = pos_after_percent;
+	if (is_a_minus(*to_print))
+		return (print_d_precision_plus_neg(str, pos_after_percent, &to_print));
+	while (str[pos_after_percent] != '.')
+		pos_after_percent++;
+	pos_after_percent++;
+	nb_precision = small_atoi(str, &pos_after_percent, nb_precision);
+	if (is_fill_with_zero(*to_print) && nb_precision == 0)
+	{
+		nb_space = small_atoi(str, &pos_save, nb_space);
+		while (i < nb_space)
+		{
+			ft_putchar(' ');
+			i++;
+		}
+		return (nb_space);
+	}
+	if (nb_precision <= ft_strlen(*to_print))
+		nb_precision = 0;
+	else
+		nb_precision = nb_precision - ft_strlen(*to_print);
+	if (!(precision = (char *)malloc(sizeof(char) * (nb_precision + 1))))
+		return (0);
 	while (i < nb_precision)
 	{
-		precision[i] = ' ';
+		precision[i] = '0';
 		i++;
 	}
 	precision[i] = '\0';
-	*to_print = ft_strjoin(string_precision, precision);
+	i = 0;
+	nb_space = small_atoi(str, &pos_save, nb_space);
+	if (nb_space <= ft_strlen(*to_print))
+		nb_space = 0;
+	else
+		nb_space = nb_space - (nb_precision + ft_strlen(*to_print));
+	while (i < nb_space)
+	{
+		ft_putchar(' ');
+		i++;
+	}
+	ft_putstr(precision);
 	free(precision);
-	free(string_precision);
-	return (ft_strlen(*to_print));
+	ft_putstr(*to_print);
+	return (ft_strlen(*to_print) + nb_space + nb_precision);
+}
+
+int				ft_input_equal_zero(const char *str, int pos_after_percent, t_flag my_struct)
+{
+	size_t nb_space;
+	size_t i;
+
+	nb_space = 0;
+	i = 0;
+	if (my_struct.nb == 0)
+		return (0);
+	if (my_struct.minus == 1)
+		pos_after_percent++;
+	nb_space = small_atoi(str, &pos_after_percent, nb_space);
+	while (i < nb_space)
+	{
+		ft_putchar(' ');
+		i++;
+	}
+	return (nb_space);
+}
+
+int				print_d_zero_precision_neg(const char *str, int pos_after_percent, char ***to_print)
+{
+	size_t 	nb_precision;
+	size_t	nb_space;
+	int 	pos_save;
+	char	*precision;
+	char	*string_space;
+	size_t i;
+	long long result;
+
+	i = 0;
+	result = 0;
+	nb_precision = 0;
+	nb_space = 0;
+	pos_save = pos_after_percent;
+
+	result = ft_atoi(**to_print) * (-1);
+	free(**to_print);
+	**to_print = ft_itoa(result);
+
+	while (str[pos_after_percent] != '.')
+		pos_after_percent++;
+	pos_after_percent++;
+	nb_precision = small_atoi(str, &pos_after_percent, nb_precision);
+	if (nb_precision <= ft_strlen(**to_print))
+		nb_precision = 0;
+	else
+		nb_precision = nb_precision - ft_strlen(**to_print);
+	if (!(precision = (char *)malloc(sizeof(char) * (nb_precision + 1))))
+		return (0);
+	while (i < nb_precision)
+	{
+		precision[i] = '0';
+		i++;
+	}
+	precision[i] = '\0';
+	i = 0;
+	pos_save++;
+	nb_space = small_atoi(str, &pos_save, nb_space);
+	if (nb_space <= ft_strlen(**to_print) + nb_precision)
+		nb_space = 0;
+	else
+		nb_space = nb_space - (ft_strlen(**to_print) + nb_precision + 1);
+	if (!(string_space = (char *)malloc(sizeof(char) * (nb_space + 1))))
+		return (0);
+	while (i < nb_space)
+	{
+		string_space[i] = ' ';
+		i++;
+	}
+	string_space[i] = '\0';
+	ft_putstr(string_space);
+	free(string_space);
+	ft_putchar('-');
+	ft_putstr(precision);
+	free(precision);
+	ft_putstr(**to_print);
+	return (ft_strlen(**to_print) + nb_precision + nb_space + 1);
+}
+
+int				print_d_zero_precision(const char *str, int pos_after_percent, char **to_print)
+{
+	size_t 	nb_precision;
+	size_t	nb_space;
+	int 	pos_save;
+	char	*precision;
+	char	*string_space;
+	size_t i;
+
+	i = 0;
+	nb_precision = 0;
+	nb_space = 0;
+	pos_save = pos_after_percent;
+	if (is_a_minus(*to_print))
+		return (print_d_zero_precision_neg(str, pos_after_percent, &to_print));
+	while (str[pos_after_percent] != '.')
+		pos_after_percent++;
+	pos_after_percent++;
+	nb_precision = small_atoi(str, &pos_after_percent, nb_precision);
+	if (nb_precision <= ft_strlen(*to_print))
+		nb_precision = 0;
+	else
+		nb_precision = nb_precision - ft_strlen(*to_print);
+	if (!(precision = (char *)malloc(sizeof(char) * (nb_precision + 1))))
+		return (0);
+	while (i < nb_precision)
+	{
+		precision[i] = '0';
+		i++;
+	}
+	precision[i] = '\0';
+	i = 0;
+	pos_save++;
+	nb_space = small_atoi(str, &pos_save, nb_space);
+	if (nb_space <= ft_strlen(*to_print) + nb_precision)
+		nb_space = 0;
+	else
+		nb_space = nb_space - (nb_precision + ft_strlen(*to_print));
+	if (!(string_space = (char *)malloc(sizeof(char) * (nb_space + 1))))
+		return (0);
+	while (i < nb_space)
+	{
+		string_space[i] = ' ';
+		i++;
+	}
+	string_space[i] = '\0';
+	ft_putstr(string_space);
+	free(string_space);
+	ft_putstr(precision);
+	free(precision);
+	ft_putstr(*to_print);
+	return (ft_strlen(*to_print) + nb_space + nb_precision);
+}
+
+int				print_d_special_case(const char *str, int pos_after_percent, t_flag my_struct)
+{
+	size_t nb_space;
+	size_t i;
+
+	nb_space = 0;
+	i = 0;
+	if (my_struct.minus == 1)
+		pos_after_percent++;
+	nb_space = small_atoi(str, &pos_after_percent, nb_space);
+	while (i < nb_space)
+	{
+		ft_putchar(' ');
+		i++;
+	}
+	return (nb_space);
 }
 
 int				print_d(const char *str, t_flag my_struct, va_list args, int pos_after_percent)
@@ -205,27 +508,56 @@ int				print_d(const char *str, t_flag my_struct, va_list args, int pos_after_pe
 	char	*to_print;
 	size_t	len;
 
-	to_print = ft_strdup(ft_itoa(va_arg(args, int)));
-	if (my_struct.minus == 1 && my_struct.zero == 0 && my_struct.nb > 0)
-		print_d_minus_space(str, pos_after_percent, &to_print);
-	if (my_struct.zero == 0 && my_struct.nb > 0)
-		print_d_space(str, pos_after_percent, &to_print);
-	if (my_struct.zero == 1)
-		print_d_zero(str, pos_after_percent, &to_print);
-		//	printf("struct.minus : %d\n", my_struct.minus);
-		//	printf("struct.precision : %d\n", my_struct.precision);
-/*	if (my_struct.precision == 1 && my_struct.minus == 1 && my_struct.nb2 > 0)
-	{
-		write(1, "aaa", 3);
-		print_d_precision_minus(str, pos_after_percent, &to_print);
-		write(1, "bbb", 3);
-	}
-*/
-	if (my_struct.nb == 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
-		print_d_precision(str, pos_after_percent, &to_print);
+	len = 0;
+	if (str[my_struct.len + pos_after_percent] == 'd' || str[my_struct.len + pos_after_percent] == 'i')
+		to_print = ft_itoa(va_arg(args, int));
+	else if (str[my_struct.len + pos_after_percent] == 'u')
+		to_print = ft_itoa(va_arg(args, unsigned int));
+	else if (str[my_struct.len + pos_after_percent] == 'x')
+		to_print = ft_itoa_base(va_arg(args, int), 16, 1);
+	else if (str[my_struct.len + pos_after_percent] == 'X')
+		to_print = ft_itoa_base(va_arg(args, int), 16, 2);
 
-	ft_putstr(to_print);
-	len = ft_strlen(to_print);
+	//PRINTF("%d", 12);
+	if (my_struct.zero == 0 && (my_struct.minus == 0 || my_struct.minus == 1) && my_struct.nb == 0 && my_struct.precision == 0)
+	{
+		ft_putstr(to_print);
+		len += ft_strlen(to_print);
+	}
+
+	//PRINTF("%5d", 12);
+	else if (my_struct.minus == 0 && my_struct.zero == 0 && my_struct.nb > 0 && my_struct.precision == 0)
+		len += print_d_space(str, pos_after_percent, &to_print);
+
+	//PRINTF("%-5d", 12);
+	else if (my_struct.minus == 1 && my_struct.zero == 0 && my_struct.nb > 0 
+			&& my_struct.precision == 0)
+		len += print_d_minus_space(str, pos_after_percent, &to_print);
+	
+	//PRINTF("%015d", 12);
+	else if (my_struct.zero == 1 && (my_struct.nb > 0 || my_struct.nb == 0) && my_struct.precision == 0)
+		len += print_d_zero(str, pos_after_percent, &to_print);
+
+	//PRINTF("%.5d", 12);
+	else if (my_struct.minus == 0 && my_struct.nb == 0 && my_struct.precision == 1 
+			&& my_struct.nb2 > 0)
+		len += print_d_precision(str, pos_after_percent, &to_print);
+	
+	//PRINTF("%5.2d", 12)
+	else if (my_struct.zero == 0 && my_struct.minus == 0 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
+		len += print_d_precision_plus(str, pos_after_percent, &to_print);
+
+	//PRINTF("%-5.2d", 12)
+	else if (my_struct.zero == 0 && my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
+		len += print_d_precision_minus(str, pos_after_percent, &to_print);
+
+	//PRINTF("%08.5d", 34)
+	else if (my_struct.minus == 0 && my_struct.zero == 1 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
+		len += print_d_zero_precision(str, pos_after_percent, &to_print);
+
+	else if ((my_struct.minus == 0 && my_struct.zero == 0 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 == 0 && is_fill_with_zero(to_print))
+			|| (my_struct.minus == 1 && my_struct.zero == 0 && my_struct.nb > 0 && my_struct.precision == 1 && my_struct.nb2 == 0 && is_fill_with_zero(to_print)))
+		len += print_d_special_case(str, pos_after_percent, my_struct);
 	free(to_print);
 	return (len);
 }
