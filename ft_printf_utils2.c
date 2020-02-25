@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 19:38:19 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/23 20:50:59 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/25 10:59:26 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int			small_atoi(const char *str, int *pos, size_t nb_value)
 	}
 	return (nb_value);
 }
-/*
-static long int		len_number(long long nb)
+
+int		len_ofnumber(int nb)
 {
 	if (nb < 0)
-		return (1 + len_number(nb * (-1)));
+		return (1 + len_ofnumber(nb * (-1)));
 	if (nb > 9)
-		return (1 + len_number(nb / 10));
+		return (1 + len_ofnumber(nb / 10));
 	return (1);
 }
-
+/*
 static int			what_multiplicator(int len)
 {
 	int i;

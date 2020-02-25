@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/23 21:27:31 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/25 20:33:32 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@ typedef struct  s_flag {
     int     minus;
 	int		minus2;
 	int		nb;
+	int		len_nb;
 	int		nb2;
+	int		len_nb2;
 	int		star;
+	int		len_star;
 	int		star2;
+	int		len_star2;
     int     precision;
     int     len;
 }               t_flag;
@@ -43,6 +47,7 @@ void		ft_putstr(char *str);
 void		ft_putnbr(int n);
 char		*ft_strdup(const char *src);
 size_t		ft_strlen(const char *s);
+int			ft_strlen2(const char *s);
 char		*ft_itoa(long long n);
 char		*ft_itoa_base(unsigned int n, unsigned int base, int whatsbase);
 char		*ft_itoa_base_p(unsigned long n, unsigned long base, int whatsbase);
@@ -61,23 +66,24 @@ int			small_atoi(const char *str, int *pos, size_t nb_value);
 int			small_atoi_final(const char *str, int *pos, size_t nb_value, t_flag my_struct);
 int			small_atoi_final2(const char *str, int *pos, size_t nb_value, t_flag my_struct);
 char		*min_2_plus(char **to_print);
+int			len_ofnumber(int nb);
 
 /*
 ** conversions
 */
 
-int			print_s(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
-int			print_s_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
-int			print_s_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
-int			print_s_minus_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
-int			print_s_space_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
-int			print_s_minus_space_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
-int			print_s_nb_prec_only(const char *str, int pos_after_percent, t_flag my_struct);
+int			print_s(t_flag my_struct, va_list args);
+int			print_s_nb_prec_only(t_flag my_struct);
+int			print_s_precision(char **to_print, t_flag my_struct);
+int			print_s_space(char **to_print, t_flag my_struct);
+int			print_s_minus_space(char **to_print, t_flag my_struct);
+int			print_s_space_precision(char **to_print, t_flag my_struct);
+int			print_s_minus_space_precision(char **to_print, t_flag my_struct);
 
 int			print_d(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
+int			print_d_space(char **to_print, t_flag my_struct);
+int			print_d_minus_space(char **to_print, t_flag my_struct);
 int			print_d_zero(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
-int			print_d_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
-int			print_d_minus_space(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
 int			print_d_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
 int			print_d_precision_minus(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
 int			print_d_precision_minus_neg(const char *str, int pos_after_percent, char ***to_print, t_flag my_struct);
@@ -86,18 +92,20 @@ int			print_d_precision_plus_neg(const char *str, int pos_after_percent, char **
 int			print_d_zero_precision(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
 int			print_d_zero_precision_neg(const char *str, int pos_after_percent, char ***to_print, t_flag my_struct);
 int			print_d_special_case(const char *str, int pos_after_percent, t_flag my_struct);
+int			print_d_nb_and_prec(const char *str, int pos_after_percent, char **to_print, t_flag my_struct);
+
 
 int			print_percent_no_flag();
-int			print_percent_space(const char *str, int pos_after_percent);
-int			print_percent_minus_space(const char *str, int pos_after_percent);
-int			print_percent_zero(const char *str, int pos_after_percent);
-int			print_percent_minus_zero(const char *str, int pos_after_percent);
-int			print_percent(const char *str, t_flag my_struct, int pos_after_percent);
+int			print_percent_zero(t_flag my_struct);
+int			print_percent_minus_zero(t_flag my_struct);
+int			print_percent_space(t_flag my_struct);
+int			print_percent_minus_space(t_flag my_struct);
+int			print_percent(t_flag my_struct);
 
 int			print_c_no_flag(char tmp);
-int			print_c_space(const char *str, int pos_after_percent, char tmp);
-int			print_c_minus_space(const char *str, int pos_after_percent, char tmp);
-int			print_c(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
+int			print_c_space(char tmp, t_flag my_struct);
+int			print_c_minus_space(char tmp, t_flag my_struct);
+int			print_c(t_flag my_struct, va_list args);
 
 int			print_x(const char *str, t_flag my_struct, va_list args, int pos_after_percent);
 

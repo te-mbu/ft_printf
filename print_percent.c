@@ -6,132 +6,163 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:18:32 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/19 20:18:39 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/25 17:31:21 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+//good
 int				print_percent_no_flag()
 {
 	ft_putchar('%');
 	return (1);
 }
 
-int				print_percent_space(const char *str, int pos_after_percent)
+//PRINTF("%05%");			good
+//PRINTF("%0*%", 5);		good
+int				print_percent_zero(t_flag my_struct)
 {
-	size_t nb_space;
-	size_t i;
+	int i;
 
-	nb_space = 0;
 	i = 0;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
+	if (my_struct.nb <= 1)
 	{
-		nb_space = nb_space * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
+		ft_putchar('%');
+		return (1);
 	}
-	nb_space = nb_space - 1;
-	while (i < nb_space)
+	else
 	{
-		ft_putchar(' ');
-		i++;
+		my_struct.nb = my_struct.nb -= 1;
+		while (i < my_struct.nb)
+		{
+			ft_putchar('0');
+			i++;
+		}
+		ft_putchar('%');
 	}
-	ft_putchar('%');
-	return (nb_space + 1);
+	return (my_struct.nb + 1);
 }
 
-int				print_percent_minus_space(const char *str, int pos_after_percent)
+//PRINTF("%-5%");			good
+//PRINTF("%*%", -5);		good
+//PRINTF("%-*%", 5);		good
+int				print_percent_minus_zero(t_flag my_struct)
 {
-	size_t nb_space;
-	size_t i;
+	int i;
 
-	nb_space = 0;
 	i = 0;
-	pos_after_percent++;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
+	if (my_struct.nb <= 1)
 	{
-		nb_space = nb_space * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
+		ft_putchar('%');
+		return (1);
 	}
-	ft_putchar('%');
-	nb_space = nb_space - 1;
-	while (i < nb_space)
+	else
 	{
-		ft_putchar(' ');
-		i++;
+		ft_putchar('%');
+		my_struct.nb = my_struct.nb -= 1;
+		while (i < my_struct.nb)
+		{
+			ft_putchar(' ');
+			i++;
+		}
 	}
-	return (nb_space + 1);
+	return (my_struct.nb + 1);
 }
 
-int				print_percent_zero(const char *str, int pos_after_percent)
+//PRINTF("%5%");			good
+//PRINTF("%*%", 5);			good
+int				print_percent_space(t_flag my_struct)
 {
-	size_t nb_zero;
-	size_t i;
+	int i;
 
-	nb_zero = 0;
 	i = 0;
-	while (str[pos_after_percent] == '0')
-		pos_after_percent++;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
+	if (my_struct.nb <= 1)
 	{
-		nb_zero = nb_zero * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
+		ft_putchar('%');
+		return (1);
 	}
-	nb_zero = nb_zero - 1;
-	while (i < nb_zero)
+	else
 	{
-		ft_putchar('0');
-		i++;
+		my_struct.nb = my_struct.nb -= 1;
+		while (i < my_struct.nb)
+		{
+			ft_putchar(' ');
+			i++;
+		}
+		ft_putchar('%');
 	}
-	ft_putchar('%');
-	return (nb_zero + 1);
+	return (my_struct.nb + 1);
 }
 
-int				print_percent_minus_zero(const char *str, int pos_after_percent)
+//PRINTF("%5.%");			good
+//PRINTF("%*.%", 5);		good
+//PRINTF("%-*.%", 5);		good
+int				print_percent_minus_space(t_flag my_struct)
 {
-	size_t nb_zero;
-	size_t i;
+	int i;
 
-	nb_zero = 0;
 	i = 0;
-	pos_after_percent++;
-	while (str[pos_after_percent] == '0')
-		pos_after_percent++;
-	while(str[pos_after_percent] >= '0' && str[pos_after_percent] <= '9')
+	if (my_struct.nb <= 1)
 	{
-		nb_zero = nb_zero * 10 + str[pos_after_percent] - 48;
-		pos_after_percent++;
+		ft_putchar('%');
+		return (1);
 	}
-	nb_zero = nb_zero - 1;
-	ft_putchar('%');
-	while (i < nb_zero)
+	else
 	{
-		ft_putchar(' ');
-		i++;
+		ft_putchar('%');
+		my_struct.nb = my_struct.nb -= 1;
+		while (i < my_struct.nb)
+		{
+			ft_putchar(' ');
+			i++;
+		}
 	}
-	return (nb_zero + 1);
+	return (my_struct.nb + 1);
 }
 
-int				print_percent(const char *str, t_flag my_struct, int pos_after_percent)
+
+int				print_percent(t_flag my_struct)
 {
 	size_t len;
 
 	len = 0;
-	if ((my_struct.zero > 0 && my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 0 
-					&& my_struct.nb2 == 0))
-		len += print_percent_zero(str, pos_after_percent);
-	else if ((my_struct.nb > 0 && my_struct.minus == 1 && my_struct.precision == 0 && my_struct.nb2 == 0))
-		len += print_percent_minus_zero(str, pos_after_percent);
-	else if ((my_struct.nb == 0 && my_struct.minus == 0 && my_struct.precision == 0 && my_struct.nb2 == 0)
-		|| (my_struct.nb == 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.nb2 == 0) 
-			|| (my_struct.nb == 0 && my_struct.precision == 1 && my_struct.nb2 > 0))
+
+	if (my_struct.len_star > 0)
+		my_struct.nb = my_struct.star;
+	if (my_struct.len_star2 > 0)
+		my_struct.nb2 = my_struct.star2;	
+	my_struct.len_nb = len_ofnumber(my_struct.nb);
+	my_struct.len_nb2 = len_ofnumber(my_struct.nb2);
+
+//PRINTF("%%");
+	if (my_struct.len == 0)
 		len += print_percent_no_flag();
+
+//PRINTF("%05%");
+//PRINTF("%0*%", 5);
+	else if ((my_struct.zero > 0 && my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 0 
+					&& my_struct.nb2 == 0))
+		len += print_percent_zero(my_struct);
+
+//PRINTF("%-5%");
+//PRINTF("%*%", -5);
+//PRINTF("%-*%", 5);
+	else if ((my_struct.minus > 0 && my_struct.nb > 0 && my_struct.precision == 0 && my_struct.len_nb2 == 0))
+		len += print_percent_minus_zero(my_struct);
+
+//PRINTF("%5%");
+//PRINTF("%*%", 5);
 	else if ((my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 0 && my_struct.nb2 == 0)
 		|| (my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
 			|| (my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.nb2 == 0))
-		len += print_percent_space(str, pos_after_percent);
-	else if ((my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 0) 
-		||(my_struct.minus == 1 && my_struct.nb > 0 && my_struct.precision == 1))
-		len += print_percent_minus_space(str, pos_after_percent);
+		len += print_percent_space(my_struct);
+
+//PRINTF("%5.%");
+//PRINTF("%*.%", 5);
+//PRINTF("%-*.%", 5);
+	else if ((my_struct.minus > 0 && my_struct.nb > 0 && my_struct.precision == 1))
+		len += print_percent_minus_space(my_struct);
+
 	return (len);
 }

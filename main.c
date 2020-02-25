@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 14:47:34 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/23 22:19:42 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/25 20:35:26 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 int		main()
 {
 
-#define INPUT "[%4.d]", -100
+//#define INPUT "%*.3s", -15, "ABC"
+//#define INPUT "%-*.3s", 15, "ABC" //good
+#define INPUT "[%---*d]", -19, -1
 
+//#define INPUT "[%10.2s]", "ABC"     //good
 
 		write(1, "\n***FT_PRINTF***\n\n", 17);
 		printf(" ret : %d\n", ft_printf(INPUT));

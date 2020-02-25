@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:07:20 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/23 21:43:10 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/25 11:11:49 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,18 @@ void			check_flag_zero(const char *str, t_flag *my_struct, int *i)
 }
 
 void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, va_list args,  int *i)
-{
+{	
 	while ((str[*i] >= '0' && str[*i] <= '9') || str[*i] == '-' || str[*i] == '*')
 	{
 		if (str[*i] >= '0' && str[*i] <= '9')
 		{
-			my_struct->nb += 1;
+			while (str[*i] >= '0' && str[*i] <= '9')
+			{
+				my_struct->nb = my_struct->nb * 10 + str[*i] - 48;
+				*i += 1;
+			}
 			my_struct->len += 1;
-			*i += 1;
+			my_struct->len_nb = len_ofnumber(my_struct->nb);
 		}
 		if (str[*i] == '-')
 		{
@@ -42,6 +46,7 @@ void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, va_list args
 		{
 
 			my_struct->star = va_arg(args, int);
+			my_struct->len_star = len_ofnumber(my_struct->star);
 			if (my_struct->star < 0)
 			{
 				my_struct->star *= (-1);
@@ -69,9 +74,13 @@ void			check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct, va_list a
 	{
 		if (str[*i] >= '0' && str[*i] <= '9')
 		{
-			my_struct->nb2 += 1;
+			while (str[*i] >= '0' && str[*i] <= '9')
+			{
+				my_struct->nb2 = my_struct->nb2 * 10 + str[*i] - 48;
+				*i += 1;
+			}
 			my_struct->len += 1;
-			*i += 1;
+			my_struct->len_nb2 = len_ofnumber(my_struct->nb2);
 		}
 		if (str[*i] == '-')
 		{
@@ -82,6 +91,12 @@ void			check_flag_nb2_minus2_star2(const char *str, t_flag *my_struct, va_list a
 		if (str[*i] == '*')
 		{
 			my_struct->star2 = va_arg(args, int);
+			my_struct->len_star2 = len_ofnumber(my_struct->star2);
+			if (my_struct->star2 < 0)
+			{
+				my_struct->star2 *= (-1);
+				my_struct->minus2 = 1;
+			}
 			my_struct->len += 1;
 			*i += 1;
 		}
