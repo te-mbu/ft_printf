@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:16:02 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/25 20:31:33 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/25 23:02:23 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int				print_s(t_flag my_struct, va_list args)
 
 	// PRINTF("%.3s", "salut")			good
 	// PRINTF("%.*s", 3, "salut")		good
-	else if (my_struct.zero == 0 && my_struct.minus == 0 && my_struct.nb == 0 && my_struct.nb2 > 0 && my_struct.precision == 1)
+	else if (my_struct.zero == 0 && my_struct.minus == 0 && my_struct.nb == 0 && my_struct.len_nb2 > 0 && my_struct.precision == 1)
 		len += print_s_precision(&to_print, my_struct);
 	
 	//PRINTF("%10s", "salut")			good

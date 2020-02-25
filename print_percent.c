@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:18:32 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/25 17:31:21 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/25 23:58:46 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,24 @@ int				print_percent(t_flag my_struct)
 	my_struct.len_nb = len_ofnumber(my_struct.nb);
 	my_struct.len_nb2 = len_ofnumber(my_struct.nb2);
 
+/*
+			printf("\n---------------------------\n");
+			printf("\n\n\nstruct.zero : %d\n", my_struct.zero);
+			printf("struct.minus : %d\n", my_struct.minus);
+			printf("struct.star : %d\n", my_struct.star);
+			printf("struct.len_star : %d\n", my_struct.len_star);
+			printf("struct.nb : %d\n", my_struct.nb);
+			printf("struct.len_nb : %d\n", my_struct.len_nb);
+			printf("struct.nb 2: %d\n", my_struct.nb2);
+			printf("struct.len_nb2 : %d\n", my_struct.len_nb2);
+			printf("struct.precision : %d\n", my_struct.precision);
+			printf("struct.minus 2: %d\n", my_struct.minus2);
+			printf("struct.star2 : %d\n", my_struct.star2);
+			printf("struct.len_star2 : %d\n", my_struct.len_star2);
+			printf("struct.len : %d\n", my_struct.len);
+			printf("---------------------------\n");
+*/
+
 //PRINTF("%%");
 	if (my_struct.len == 0)
 		len += print_percent_no_flag();
@@ -148,7 +166,7 @@ int				print_percent(t_flag my_struct)
 //PRINTF("%-5%");
 //PRINTF("%*%", -5);
 //PRINTF("%-*%", 5);
-	else if ((my_struct.minus > 0 && my_struct.nb > 0 && my_struct.precision == 0 && my_struct.len_nb2 == 0))
+	else if ((my_struct.minus > 0 && my_struct.len_nb > 0 && my_struct.precision == 0))
 		len += print_percent_minus_zero(my_struct);
 
 //PRINTF("%5%");
