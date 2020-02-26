@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:27:59 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/25 23:57:24 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/26 02:11:26 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,7 +376,7 @@ int				print_d(const char *str, t_flag my_struct, va_list args, int pos_after_pe
 
 	//PRINTF("%d", 12);				good
 	//PRINTF("%-d", 12)				good
-	if (my_struct.len == 0 || (my_struct.len == my_struct.minus && my_struct.minus > 0))
+	if (my_struct.len == 0 || (my_struct.len == my_struct.minus && my_struct.minus > 0 && my_struct.len_nb == 0))
 	{
 		ft_putstr(to_print);
 		len += ft_strlen(to_print);
