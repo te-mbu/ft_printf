@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:16:02 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/26 05:05:27 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/26 05:35:00 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ int				print_s_space_precision(char **to_print, t_flag my_struct)
 	char	*str_precision;
 
 	i = -1;
+	if (my_struct.minus2 > 0)
+	{
+		if (my_struct.nb <= ft_strlen2(*to_print))
+			my_struct.nb = 0;
+		else
+			my_struct.nb = my_struct.nb -= ft_strlen(*to_print);
+		while (++i < my_struct.nb)
+			ft_putchar(' ');
+		ft_putstr(*to_print);
+		return (my_struct.nb + ft_strlen2(*to_print));
+	}
 	if (my_struct.nb2 >= ft_strlen2(*to_print))
 	{
 		my_struct.nb2 = ft_strlen2(*to_print);
@@ -85,9 +96,22 @@ int				print_s_space_precision(char **to_print, t_flag my_struct)
 int				print_s_minus_space_precision(char **to_print, t_flag my_struct)
 {
 	int 	i;
-
+//TO DO - A CHANGER 
 	i = -1;
-	if (my_struct.minus2 > 0)
+
+	if (my_struct.minus > 0 && my_struct.minus2 > 0)
+	{
+		ft_putstr(*to_print);
+		if (my_struct.nb <= ft_strlen2(*to_print))
+			my_struct.nb = 0;
+		else
+			my_struct.nb = my_struct.nb - ft_strlen(*to_print);
+		while (++i < my_struct.nb)
+			ft_putchar(' ');
+		return (my_struct.nb + ft_strlen(*to_print));
+	}
+
+	if (my_struct.minus2 > 0)					// A CHANGER PEUT ETRE
 	{
 		ft_putstr(*to_print);
 		return (ft_strlen(*to_print));
