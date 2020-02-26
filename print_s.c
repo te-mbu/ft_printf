@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:16:02 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/26 01:54:51 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/26 05:05:27 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				print_s_space_precision(char **to_print, t_flag my_struct)
 {
 	int 	i;
 	char	*str_precision;
-//	printf("\n\ns space precision\n\n");
+
 	i = -1;
 	if (my_struct.nb2 >= ft_strlen2(*to_print))
 	{
@@ -87,6 +87,11 @@ int				print_s_minus_space_precision(char **to_print, t_flag my_struct)
 	int 	i;
 
 	i = -1;
+	if (my_struct.minus2 > 0)
+	{
+		ft_putstr(*to_print);
+		return (ft_strlen(*to_print));
+	}
 	if (my_struct.nb2 >= ft_strlen2(*to_print))
 	{
 		my_struct.nb2 = ft_strlen(*to_print);

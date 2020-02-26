@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 20:18:32 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/26 02:02:37 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/26 04:22:29 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ int				print_percent_space(t_flag my_struct)
 	else
 	{
 		my_struct.nb = my_struct.nb -= 1;
-		while (i < my_struct.nb)
-		{
-			ft_putchar(' ');
-			i++;
-		}
+		while (i++ < my_struct.nb)
+			if(my_struct.zero > 0)
+				ft_putchar('0');
+			else
+				ft_putchar(' ');
 		ft_putchar('%');
 	}
 	return (my_struct.nb + 1);
@@ -112,11 +112,8 @@ int				print_percent_minus_space(t_flag my_struct)
 	{
 		ft_putchar('%');
 		my_struct.nb = my_struct.nb -= 1;
-		while (i < my_struct.nb)
-		{
+		while (i++ < my_struct.nb)
 			ft_putchar(' ');
-			i++;
-		}
 	}
 	return (my_struct.nb + 1);
 }
@@ -171,8 +168,8 @@ int				print_percent(t_flag my_struct)
 
 //PRINTF("%5%");
 //PRINTF("%*%", 5);
-	else if ((my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 0 && my_struct.nb2 == 0)
-		|| (my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.nb2 > 0)
+	else if ((my_struct.len_nb > 0 && my_struct.minus == 0 && my_struct.precision == 0 && my_struct.len_nb2 == 0)
+		|| (my_struct.len_nb > 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.len_nb2 > 0)
 			|| (my_struct.nb > 0 && my_struct.minus == 0 && my_struct.precision == 1 && my_struct.nb2 == 0))
 		len += print_percent_space(my_struct);
 
@@ -182,6 +179,12 @@ int				print_percent(t_flag my_struct)
 	else if (my_struct.minus > 0 && my_struct.nb > 0 && my_struct.precision == 1)
 		len += print_percent_minus_space(my_struct);
 
+// #define INPUT "[%-.148%]"
+	else if (my_struct.zero == 0 && my_struct.minus > 0 && my_struct.nb == 0 && my_struct.precision == 1 && my_struct.len_nb2 > 0)
+	{
+		ft_putchar('%');
+		return (1);
+	}
 	else if (my_struct.zero == 0 && my_struct.minus == 0 && my_struct.nb == 0 && my_struct.star == -1 && my_struct.precision == 1 && my_struct.len_nb2 > 0)
 	{
 		ft_putchar('%');

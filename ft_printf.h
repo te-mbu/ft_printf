@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/26 00:14:48 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/26 04:09:46 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int			print_d_zero(char **to_print, t_flag my_struct);
 int			print_d_nb_and_prec(char **to_print, t_flag my_struct);
 int			print_d_precision(char **to_print, t_flag my_struct);
 int			print_d_zero_precision(char **to_print, t_flag my_struct);
-
+//int			print_d_all_in(char **to_print, t_flag my_struct);
 
 int			print_percent_no_flag();
 int			print_percent_zero(t_flag my_struct);
