@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 18:07:20 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/25 11:11:49 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/27 17:27:42 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void			check_flag_zero(const char *str, t_flag *my_struct, int *i)
 
 void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, va_list args,  int *i)
 {	
-	while ((str[*i] >= '0' && str[*i] <= '9') || str[*i] == '-' || str[*i] == '*')
+	while ((str[*i] >= '0' && str[*i] <= '9') || str[*i] == '-' ||
+						str[*i] == '*')
 	{
 		if (str[*i] >= '0' && str[*i] <= '9')
 		{
@@ -44,7 +45,6 @@ void			check_flag_nb_minus_star(const char *str, t_flag *my_struct, va_list args
 		}
 		if (str[*i] == '*')
 		{
-
 			my_struct->star = va_arg(args, int);
 			my_struct->len_star = len_ofnumber(my_struct->star);
 			if (my_struct->star < 0)

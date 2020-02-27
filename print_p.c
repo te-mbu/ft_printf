@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 23:07:36 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/26 00:17:32 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/27 17:10:42 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int				print_p(t_flag my_struct, va_list args)
 	free(tmp);
 	free(tmp2);
 
-	if (my_struct.len == 0)
+	if (my_struct.len == 0 || (my_struct.len == 1 && my_struct.precision == 1))
 	{
 		ft_putstr(to_print);
 		len += ft_strlen(to_print);

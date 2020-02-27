@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/05 17:27:59 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/26 04:54:44 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/27 17:15:44 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,27 +220,6 @@ int				print_d_precision(char **to_print, t_flag my_struct)
 	return (my_struct.nb2 + ft_strlen(*to_print));
 }
 
-/*
-int				ft_input_equal_zero(const char *str, int pos_after_percent, t_flag my_struct)
-{
-	size_t nb_space;
-	size_t i;
-
-	nb_space = 0;
-	i = 0;
-	if (my_struct.nb == 0)
-		return (0);
-	if (my_struct.minus == 1)
-		pos_after_percent++;
-	nb_space = small_atoi_final(str, &pos_after_percent, nb_space, my_struct);
-	while (i < nb_space)
-	{
-		ft_putchar(' ');
-		i++;
-	}
-	return (nb_space);
-}
-*/
 
 //PRINTF("%08.5d", 34);
 //PRINTF("%0*.5d", 8, 34);
