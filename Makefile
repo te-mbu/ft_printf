@@ -2,14 +2,22 @@ SRCS		= 	ft_printf.c					\
 				check_flags.c				\
 				ft_printf_utils1.c			\
 				ft_printf_utils2.c			\
+				ft_printf_utils3.c			\
+				ft_printf_utils4.c			\
+				ft_printf_utils5.c			\
 				ft_itoa.c					\
 				ft_itoa_base.c				\
 				ft_itoa_base_p.c			\
 				print_d.c					\
+				print_d2.c					\
+				print_d3.c					\
+				print_d4.c					\
 				print_s.c					\
+				print_s2.c					\
 				print_c.c					\
 				print_p.c					\
 				print_percent.c				\
+				print_percent2.c			\
 		
 OBJS		= ${SRCS:.c=.o}
 

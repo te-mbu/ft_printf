@@ -6,13 +6,14 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:07 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/26 00:14:36 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/29 19:59:27 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void			ft_parsing(const char *str, t_flag *my_struct,va_list args, int *i)
+void			ft_parsing(const char *str, t_flag *my_struct,
+					va_list args, int *i)
 {
 	*i += 1;
 	check_flag_zero(str, &*my_struct, &*i);
@@ -21,7 +22,8 @@ void			ft_parsing(const char *str, t_flag *my_struct,va_list args, int *i)
 	check_flag_nb2_minus2_star2(str, &*my_struct, args, &*i);
 }
 
-int			ft_conversion(const char *str, t_flag my_struct, va_list args, int *i)
+int				ft_conversion(const char *str, t_flag my_struct,
+					va_list args, int *i)
 {
 	int pos_after_percent;
 
@@ -42,7 +44,7 @@ int			ft_conversion(const char *str, t_flag my_struct, va_list args, int *i)
 	return (0);
 }
 
-void		ft_init_list(t_flag *my_struct)
+void			ft_init_list(t_flag *my_struct)
 {
 	my_struct->zero = 0;
 	my_struct->minus = 0;
@@ -75,23 +77,6 @@ int				ft_printf(const char *str, ...)
 		{
 			ft_init_list(&my_struct);
 			ft_parsing(str, &my_struct, args, &i);
-/*
-			printf("\n---------------------------\n");
-			printf("\n\n\nstruct.zero : %d\n", my_struct.zero);
-			printf("struct.minus : %d\n", my_struct.minus);
-			printf("struct.star : %d\n", my_struct.star);
-			printf("struct.len_star : %d\n", my_struct.len_star);
-			printf("struct.nb : %d\n", my_struct.nb);
-			printf("struct.len_nb : %d\n", my_struct.len_nb);
-			printf("struct.nb 2: %d\n", my_struct.nb2);
-			printf("struct.len_nb2 : %d\n", my_struct.len_nb2);
-			printf("struct.precision : %d\n", my_struct.precision);
-			printf("struct.minus 2: %d\n", my_struct.minus2);
-			printf("struct.star2 : %d\n", my_struct.star2);
-			printf("struct.len_star2 : %d\n", my_struct.len_star2);
-			printf("struct.len : %d\n", my_struct.len);
-			printf("---------------------------\n");
-*/
 			len += ft_conversion(str, my_struct, args, &i);
 		}
 		else

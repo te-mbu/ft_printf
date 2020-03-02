@@ -6,23 +6,13 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 19:38:19 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/25 10:59:26 by tembu            ###   ########.fr       */
+/*   Updated: 2020/02/29 18:03:22 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int			small_atoi(const char *str, int *pos, size_t nb_value)
-{
-	while (str[*pos] >= '0' && str[*pos] <= '9')
-	{
-		nb_value = nb_value * 10 + str[*pos] - 48;
-		*pos += 1;
-	}
-	return (nb_value);
-}
-
-int		len_ofnumber(int nb)
+int					len_ofnumber(int nb)
 {
 	if (nb < 0)
 		return (1 + len_ofnumber(nb * (-1)));
@@ -30,63 +20,8 @@ int		len_ofnumber(int nb)
 		return (1 + len_ofnumber(nb / 10));
 	return (1);
 }
-/*
-static int			what_multiplicator(int len)
-{
-	int i;
-	int result;
 
-	i = 0;
-	result = 1;
-	while (i < len)
-	{
-		result = result * 10;
-		i++;
-	}
-	return (result);
-}
-*/
-
-int			small_atoi_final(const char *str, int *pos, size_t nb_value, t_flag my_struct)
-{
-	int multi;
-	int len;
-
-	multi = 0;
-	len = 0;
-	if (str[*pos] == '*')
-	{
-		nb_value = my_struct.star;
-		return (nb_value);
-	}
-	while (str[*pos] >= '0' && str[*pos] <= '9')
-	{
-		nb_value = nb_value * 10 + str[*pos] - 48;
-		*pos += 1;
-	}
-	return (nb_value);
-}
-int			small_atoi_final2(const char *str, int *pos, size_t nb_value, t_flag my_struct)
-{
-	int multi;
-	int len;
-
-	multi = 0;
-	len = 0;
-	if (str[*pos] == '*')
-	{
-		nb_value = my_struct.star2;
-		return (nb_value);
-	}
-	while (str[*pos] >= '0' && str[*pos] <= '9')
-	{
-		nb_value = nb_value * 10 + str[*pos] - 48;
-		*pos += 1;
-	}
-	return (nb_value);
-}
-
-char		*min_2_plus(char **to_print)
+char				*min_2_plus(char **to_print)
 {
 	long long result;
 
@@ -95,4 +30,45 @@ char		*min_2_plus(char **to_print)
 	free(*to_print);
 	*to_print = ft_itoa(result);
 	return (*to_print);
+}
+
+static size_t		ft_atoi_2(const char *str, int *neg)
+{
+	int		i;
+	size_t	result;
+
+	i = 0;
+	result = 0;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n' || str[i] == '\v'
+		|| str[i] == '\f' || str[i] == '\r')
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			*neg *= -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + str[i] - 48;
+		i++;
+	}
+	return (result);
+}
+
+int					ft_atoi(const char *str)
+{
+	int		neg;
+	size_t	result;
+
+	neg = 1;
+	result = ft_atoi_2(str, &neg);
+	if (result > 9223372036854775807)
+	{
+		if (neg == 1)
+			return (-1);
+		if (neg == -1)
+			return (0);
+	}
+	return ((int)result * neg);
 }
