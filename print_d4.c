@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 23:06:22 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/02 18:10:16 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 15:34:37 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int			print_d_zero_precision2(t_flag my_struct,
 	int len_to_print;
 
 	if (is_fill_with_zero(to_print) && my_struct.nb2 == 0)
-		return (ft_freeint(to_print, 0));
+		return (ft_freeint(to_print, 0, my_struct));
 	if (!(i = 0) && my_struct.nb <= my_struct.nb2 + ft_strlen2(to_print))
 		my_struct.nb = 0;
 	else if (plus_one == 1)
@@ -62,6 +62,12 @@ int					print_d_zero_precision(char *to_print, t_flag my_struct,
 
 	if (to_print[0] == '-')
 		to_print = min_2_plus_wo_minus(&to_print, &plus_one);
+	if (is_fill_with_zero(to_print) && my_struct.nb == 0)
+	{
+		while (++i < my_struct.nb2)
+			ft_putchar('0');
+		return (ft_freeint(to_print, my_struct.nb2, my_struct));
+	}
 	if (my_struct.minus2 > 0 && my_struct.minus > 0)
 	{
 		if (plus_one == 1)

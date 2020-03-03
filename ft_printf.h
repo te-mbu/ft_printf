@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/02 18:08:13 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 15:17:49 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char				*min_2_plus_wo_minus(char **to_print, int *plus_one);
 int					len_ofnumber(int nb);
 int					print_and_return_size(char **str);
 int					ft_len_to_print(char **to_print);
-int					ft_freeint(char *str, int ret);
+int					ft_freeint(char *str, int ret, t_flag my_struct);
 int					ft_putstr_and_free(char *str, int i);
 
 /*
