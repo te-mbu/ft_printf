@@ -18,6 +18,7 @@ SRCS		= 	ft_printf.c					\
 				print_p.c					\
 				print_percent.c				\
 				print_percent2.c			\
+				ft_zero_case.c				\
 		
 OBJS		= ${SRCS:.c=.o}
 

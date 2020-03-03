@@ -6,13 +6,13 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 21:54:45 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/27 17:41:34 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 16:10:06 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_intlen(unsigned int n, unsigned int base)
+static unsigned int		ft_intlen(unsigned int n, unsigned int base)
 {
 	int	len;
 
@@ -27,7 +27,7 @@ static int	ft_intlen(unsigned int n, unsigned int base)
 	return (len);
 }
 
-char		*ft_itoa_base(unsigned int n, unsigned int base, int whatsbase)
+char					*ft_itoa_base(unsigned int n, unsigned int base, int whatsbase)
 {
 	unsigned int	len;
 	char			*s;

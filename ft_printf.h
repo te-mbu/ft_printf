@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 15:17:49 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 22:23:33 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct		s_flag {
 	int		precision;
 	int		len;
 }					t_flag;
+
+#define TEST write(1, "test\n", 5);
 
 int					ft_printf(const char *str, ...);
 
@@ -68,7 +70,7 @@ char				*min_2_plus_wo_minus(char **to_print, int *plus_one);
 int					len_ofnumber(int nb);
 int					print_and_return_size(char **str);
 int					ft_len_to_print(char **to_print);
-int					ft_freeint(char *str, int ret, t_flag my_struct);
+int					ft_freeint(char *str, int ret);
 int					ft_putstr_and_free(char *str, int i);
 
 /*
@@ -128,6 +130,7 @@ int					ft_conversion(const char *str, t_flag my_struct,
 void				ft_init_list(t_flag *my_struct);
 void				ft_parsing(const char *str, t_flag *my_struct,
 					va_list args, int *i);
+int					ft_zero_case(t_flag my_struct, char *to_print, int i);
 
 /*
 ** flags

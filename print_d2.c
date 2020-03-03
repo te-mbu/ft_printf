@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 23:01:15 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 15:10:34 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 17:38:26 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int					print_d_space(char *to_print, t_flag my_struct)
 {
 	int i;
 	int len_to_print;
+
 	i = 0;
 	len_to_print = 0;
 	if (my_struct.nb <= ft_strlen2(to_print))
@@ -64,7 +65,7 @@ int					print_d_precision_plus2(t_flag my_struct, int plus_one,
 {
 	int i;
 	int len_to_print;
-
+	
 	i = 0;
 	len_to_print = 0;
 	if (my_struct.nb <= my_struct.nb2 + ft_strlen2(to_print))
@@ -128,9 +129,9 @@ int					print_d_precision_minus_sc1(t_flag my_struct,
 	if (my_struct.nb <= ft_strlen2(to_print))
 		my_struct.nb = 0;
 	else if (plus_one == 1)
-		my_struct.nb = my_struct.nb - (ft_strlen(to_print) + 1);
+		my_struct.nb = my_struct.nb - (ft_strlen2(to_print) + 1);
 	else
-		my_struct.nb = my_struct.nb - ft_strlen(to_print);
+		my_struct.nb = my_struct.nb - ft_strlen2(to_print);
 	while (++i < my_struct.nb)
 		ft_putchar(' ');
 	len_to_print = ft_strlen2(to_print);

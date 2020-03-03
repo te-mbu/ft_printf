@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 23:06:22 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 15:34:37 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 18:52:08 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,12 @@ int					ft_putstr_and_free(char *str, int i)
 	return (l);
 }
 
-static int			print_d_zero_precision2(t_flag my_struct,
+static int			print_d_zero_precision3(t_flag my_struct,
 				char *to_print, int plus_one, char *str_precision)
 {
 	int i;
 	int len_to_print;
 
-	if (is_fill_with_zero(to_print) && my_struct.nb2 == 0)
-		return (ft_freeint(to_print, 0, my_struct));
 	if (!(i = 0) && my_struct.nb <= my_struct.nb2 + ft_strlen2(to_print))
 		my_struct.nb = 0;
 	else if (plus_one == 1)
@@ -55,18 +53,14 @@ static int			print_d_zero_precision2(t_flag my_struct,
 	return (my_struct.nb + my_struct.nb2 + len_to_print);
 }
 
-int					print_d_zero_precision(char *to_print, t_flag my_struct,
-				int i, int plus_one)
+static int			print_d_zero_precision2(char *to_print, t_flag my_struct,
+					int i, int plus_one)
 {
-	char		*str_precision;
-
-	if (to_print[0] == '-')
-		to_print = min_2_plus_wo_minus(&to_print, &plus_one);
 	if (is_fill_with_zero(to_print) && my_struct.nb == 0)
 	{
 		while (++i < my_struct.nb2)
 			ft_putchar('0');
-		return (ft_freeint(to_print, my_struct.nb2, my_struct));
+		return (ft_freeint(to_print, my_struct.nb2));
 	}
 	if (my_struct.minus2 > 0 && my_struct.minus > 0)
 	{
@@ -74,6 +68,19 @@ int					print_d_zero_precision(char *to_print, t_flag my_struct,
 			ft_putchar('-');
 		return (print_d_precision_minus_sc1(my_struct, to_print, plus_one));
 	}
+	return (1);
+}
+
+int					print_d_zero_precision(char *to_print, t_flag my_struct,
+				int i, int plus_one)
+{
+	char		*str_precision;
+
+	if (to_print[0] == '-')
+		to_print = min_2_plus_wo_minus(&to_print, &plus_one);
+	if ((is_fill_with_zero(to_print) && my_struct.nb == 0) ||
+		(my_struct.minus2 > 0 && my_struct.minus > 0))
+		return( print_d_zero_precision2(to_print, my_struct, -1, plus_one));
 	if (my_struct.minus2 > 0)
 		return (print_d_zero_precision_sc1(my_struct, to_print, plus_one));
 	if (my_struct.nb2 <= ft_strlen2(to_print))
@@ -85,7 +92,7 @@ int					print_d_zero_precision(char *to_print, t_flag my_struct,
 	while (++i < my_struct.nb2)
 		str_precision[i] = '0';
 	str_precision[i] = '\0';
-	return (print_d_zero_precision2(my_struct, to_print,
+	return (print_d_zero_precision3(my_struct, to_print,
 	plus_one, str_precision));
 }
 

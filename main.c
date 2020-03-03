@@ -1,17 +1,17 @@
 #include "ft_printf.h"
-/*
+
 int		main()
 {
-	#define INPUT "%s", NULL
+	#define INPUT "%.0i", 0
 
 	printf("\nret : %d\n", ft_printf(INPUT));
 	printf("\n**********************\n");
 	printf("\nret : %d\n", printf(INPUT));
 }
-*/
+
 
 //"%0.*x DcnkFGSFog%014.0X", 7, 0, 0
-
+/*
 
 int		main()
 {
@@ -19,3 +19,4 @@ int		main()
 	write(1, "\n\n", 2);
 	printf("\nret : %d\n", ft_printf("%s", NULL));
 }
+*/

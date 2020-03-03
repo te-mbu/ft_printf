@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 23:03:53 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 15:11:21 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 17:50:31 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int			print_d_precision_minus2(t_flag my_struct,
 		my_struct.nb = 0;
 	else if (plus_one == 1)
 		my_struct.nb = my_struct.nb - (my_struct.nb2
-		+ ft_strlen(to_print) + 1);
+		+ ft_strlen2(to_print) + 1);
 	else
-		my_struct.nb = my_struct.nb - (my_struct.nb2 + ft_strlen(to_print));
+		my_struct.nb = my_struct.nb - (my_struct.nb2 + ft_strlen2(to_print));
 	while (++i < my_struct.nb)
 		ft_putchar(' ');
 	len_to_print = ft_strlen2(to_print);
@@ -54,7 +54,7 @@ int					print_d_precision_minus(char *to_print, t_flag my_struct)
 	if (my_struct.nb2 <= ft_strlen2(to_print))
 		my_struct.nb2 = 0;
 	else
-		my_struct.nb2 = my_struct.nb2 -= ft_strlen(to_print);
+		my_struct.nb2 = my_struct.nb2 -= ft_strlen2(to_print);
 	while (++i < my_struct.nb2)
 		ft_putchar('0');
 	ft_putstr(to_print);
@@ -130,9 +130,9 @@ int					print_d_zero_precision_sc1(t_flag my_struct,
 	if (my_struct.nb <= ft_strlen2(to_print))
 		my_struct.nb = 0;
 	else if (plus_one == 1)
-		my_struct.nb = my_struct.nb - (ft_strlen(to_print) + 1);
+		my_struct.nb = my_struct.nb - (ft_strlen2(to_print) + 1);
 	else
-		my_struct.nb = my_struct.nb - ft_strlen(to_print);
+		my_struct.nb = my_struct.nb - ft_strlen2(to_print);
 	if (plus_one == 1)
 		ft_putchar('-');
 	while (++i < my_struct.nb)
