@@ -2,7 +2,7 @@
 
 int		main()
 {
-	#define INPUT "%.0i", 0
+	#define INPUT "%0*.*i", 6, -9, 0
 
 	printf("\nret : %d\n", ft_printf(INPUT));
 	printf("\n**********************\n");

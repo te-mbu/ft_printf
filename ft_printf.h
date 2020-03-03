@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 22:23:33 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 22:53:44 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ void				ft_init_list(t_flag *my_struct);
 void				ft_parsing(const char *str, t_flag *my_struct,
 					va_list args, int *i);
 int					ft_zero_case(t_flag my_struct, char *to_print, int i);
+int					ft_zero_case6(t_flag my_struct, int i);
+int					ft_zero_case5_sc1(t_flag my_struct, int i);
 
 /*
 ** flags

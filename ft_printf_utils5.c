@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 22:46:05 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 16:58:05 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/03 22:53:29 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,37 @@ int					ft_freeint(char *str, int ret)
 {
 	free(str);
 	return (ret);
+}
+
+int		ft_zero_case6(t_flag my_struct, int i)
+{
+	if ((my_struct.precision == 1 && my_struct.len_nb2 > 0
+	&& my_struct.len == 2)
+	|| (my_struct.minus > 0 && my_struct.precision == 1 && my_struct.len_nb2 > 0
+	&& my_struct.len - (my_struct.minus - 1) == 3))
+	{
+		if (my_struct.minus == 0 && my_struct.zero == 0 && my_struct.len_nb > 0
+		&& my_struct.precision == 1 && my_struct.len == 2 && my_struct.nb2 == 0)
+		{
+			while (++i < my_struct.nb)
+				ft_putchar(' ');
+			return (my_struct.nb);
+		}
+		while (++i < my_struct.nb2)
+			ft_putchar('0');
+		return (my_struct.nb2);
+	}
+	return (0);
+}
+
+int		ft_zero_case5_sc1(t_flag my_struct, int i)
+{
+	if (my_struct.nb == 0)
+	{
+		ft_putchar('0');
+		return (1);
+	}
+	while (++i < my_struct.nb)
+		ft_putchar('0');
+	return (my_struct.nb);
 }
