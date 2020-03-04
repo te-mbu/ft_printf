@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 23:01:15 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 17:38:26 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:48:19 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int					print_d_precision_plus2(t_flag my_struct, int plus_one,
 {
 	int i;
 	int len_to_print;
-	
+
 	i = 0;
 	len_to_print = 0;
 	if (my_struct.nb <= my_struct.nb2 + ft_strlen2(to_print))

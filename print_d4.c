@@ -6,24 +6,11 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 23:06:22 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 18:52:08 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:55:35 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int					ft_putstr_and_free(char *str, int i)
-{
-	int		l;
-
-	l = 0;
-	ft_putstr(str);
-	if (i == 1)
-		l = ft_len_to_print(&str);
-	if (i == 0)
-		free(str);
-	return (l);
-}
 
 static int			print_d_zero_precision3(t_flag my_struct,
 				char *to_print, int plus_one, char *str_precision)
@@ -80,7 +67,7 @@ int					print_d_zero_precision(char *to_print, t_flag my_struct,
 		to_print = min_2_plus_wo_minus(&to_print, &plus_one);
 	if ((is_fill_with_zero(to_print) && my_struct.nb == 0) ||
 		(my_struct.minus2 > 0 && my_struct.minus > 0))
-		return( print_d_zero_precision2(to_print, my_struct, -1, plus_one));
+		return (print_d_zero_precision2(to_print, my_struct, -1, plus_one));
 	if (my_struct.minus2 > 0)
 		return (print_d_zero_precision_sc1(my_struct, to_print, plus_one));
 	if (my_struct.nb2 <= ft_strlen2(to_print))

@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 14:09:13 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 22:53:44 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:46:16 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ typedef struct		s_flag {
 	int		precision;
 	int		len;
 }					t_flag;
-
-#define TEST write(1, "test\n", 5);
 
 int					ft_printf(const char *str, ...);
 

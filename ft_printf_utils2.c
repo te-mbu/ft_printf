@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 19:38:19 by tembu             #+#    #+#             */
-/*   Updated: 2020/02/29 18:03:22 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:54:57 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,17 @@ int					ft_atoi(const char *str)
 			return (0);
 	}
 	return ((int)result * neg);
+}
+
+int					ft_putstr_and_free(char *str, int i)
+{
+	int		l;
+
+	l = 0;
+	ft_putstr(str);
+	if (i == 1)
+		l = ft_len_to_print(&str);
+	if (i == 0)
+		free(str);
+	return (l);
 }

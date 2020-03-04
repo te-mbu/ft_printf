@@ -6,7 +6,7 @@
 /*   By: tembu <tembu@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/28 22:46:05 by tembu             #+#    #+#             */
-/*   Updated: 2020/03/03 22:53:29 by tembu            ###   ########.fr       */
+/*   Updated: 2020/03/04 11:47:51 by tembu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int					ft_freeint(char *str, int ret)
 	return (ret);
 }
 
-int		ft_zero_case6(t_flag my_struct, int i)
+int					ft_zero_case6(t_flag my_struct, int i)
 {
 	if ((my_struct.precision == 1 && my_struct.len_nb2 > 0
 	&& my_struct.len == 2)
@@ -67,7 +67,7 @@ int		ft_zero_case6(t_flag my_struct, int i)
 	return (0);
 }
 
-int		ft_zero_case5_sc1(t_flag my_struct, int i)
+int					ft_zero_case5_sc1(t_flag my_struct, int i)
 {
 	if (my_struct.nb == 0)
 	{
